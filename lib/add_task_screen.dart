@@ -5,6 +5,31 @@ class addTask extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Container(
+      decoration: BoxDecoration(
+        color: Color(0xff5038BC),
+      ),
+      child: Column(
+        children: [
+          SizedBox(height: 40),
+          Text(
+            "Add Task",
+            style: TextStyle(
+              color: Colors.white,
+              decoration: TextDecoration.none,
+              fontSize: 30
+            ),
+          ),
+          SizedBox(height: 40),
+          Expanded(
+            child: Container(
+              color: Colors.white,
+
+            ),
+          ),
+        ],
+      
+      ),
+    );
   }
 }
