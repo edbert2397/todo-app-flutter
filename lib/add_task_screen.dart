@@ -8,9 +8,10 @@ class addTask extends StatefulWidget {
 }
 
 class _addTaskState extends State<addTask> {
-
+  int _selectedIndex = 0;
   final TextEditingController _titleController = TextEditingController();
-
+  final TextEditingController _descriptionController = TextEditingController();
+  List <bool> isSelected = [true,false];
   @override
   void dispose(){
     _titleController.dispose();
@@ -71,10 +72,125 @@ class _addTaskState extends State<addTask> {
                           borderRadius: BorderRadius.all(Radius.circular(10)),
                           borderSide: BorderSide(color: Color(0xff5038BC))
                         ),
-                        
-      
                       ),
-                    )
+                    ),
+                    SizedBox(height: 40,),
+                    Text("Category",
+                      style: TextStyle(
+                        color: Color(0xff5038BC),
+                        decoration: TextDecoration.none,
+                        fontSize: 20,
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          width: 150,
+                          height: 50,
+                          child: ElevatedButton(
+                            
+                            onPressed: (){
+                              setState(() {
+                                _selectedIndex = 0;
+                              });
+                            }, 
+                            child: Text(
+                              "Priority Task",
+                              style: TextStyle(
+                                color: _selectedIndex == 0?Colors.white : Color(0xff5038BC),
+                              ),
+                            ),
+                            style: ElevatedButton.styleFrom(
+                          
+                              backgroundColor: _selectedIndex == 0? Color(0xff5038BC): Colors.white,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                          
+                              )
+                            )
+                          ),
+                        ),
+                        SizedBox(width: 20,),
+                        SizedBox(
+                          width: 150,
+                          height: 50,
+                          child: ElevatedButton(
+                          
+                            onPressed: (){
+                              setState(() {
+                                _selectedIndex = 1;
+                              });
+                            }, 
+                            child: Text(
+                              "Daily Task",
+                              style: TextStyle(
+                                color: _selectedIndex == 1?Colors.white : Color(0xff5038BC),
+                              ),                          
+                            ),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: _selectedIndex == 1? Color(0xff5038BC): Colors.white,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                          
+                              )
+                            )
+                          ),
+                        ),
+
+                      ],
+                    ),
+                    SizedBox(height: 50),
+                    Text("Description",
+                      style: TextStyle(
+                        color: Color(0xff5038BC),
+                        decoration: TextDecoration.none,
+                        fontSize: 20,
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    TextField(
+                      
+                      controller: _descriptionController,
+                      maxLines: 5,
+                      decoration: InputDecoration(
+                        contentPadding: EdgeInsets.symmetric(horizontal:20,vertical: 15),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          borderSide: BorderSide(color: Colors.grey)
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          borderSide: BorderSide(color: Color(0xff5038BC))
+                        ),
+                      ),
+                    ),
+                    SizedBox(height: 40,),
+                    SizedBox(
+                          width: double.infinity,
+                          height: 60,
+                          child: ElevatedButton(
+                            
+                            onPressed: (){}, 
+                            child: Text(
+                              "Create Task",
+                              style: TextStyle(
+                                color: Colors.white ,
+                              ),
+                            ),
+                            style: ElevatedButton.styleFrom(
+                          
+                              backgroundColor:Color(0xff5038BC),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                          
+                              )
+                            )
+                          ),
+                        ),
+
+
                     
                   ],
                 ),
