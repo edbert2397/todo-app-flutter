@@ -21,6 +21,7 @@ class _addTaskState extends State<addTask> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Container(
         decoration: BoxDecoration(
           color: Color(0xff5038BC),

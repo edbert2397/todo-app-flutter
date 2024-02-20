@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:todoapp/add_task_screen.dart';
 import 'package:todoapp/bottom_navbar.dart';
+import 'package:todoapp/edit_task_screen.dart';
 
 class homeScreen extends StatefulWidget {
   const homeScreen({super.key});
@@ -89,40 +91,71 @@ class _homeScreenState extends State<homeScreen> {
                           isSelected[index] = !isSelected[index];
                         });
                       },
-                      child: Container(
-                        margin: EdgeInsets.symmetric(vertical: 10),
-                        padding: EdgeInsets.symmetric(horizontal:20,vertical: 15),
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.grey),
-                          borderRadius: BorderRadius.circular(10),
+                      onLongPress: (){
+                        print(index);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => editTask(idx: index )),
+                        );
+                      },
+                      child: Dismissible(
+                        direction: DismissDirection.endToStart,
+                        key : UniqueKey(),
+                        onDismissed: (direction){
+                          setState(() {
+                            items.removeAt(index);
+                          });
+                        },
+                        background: Container(
+                          padding: EdgeInsets.symmetric(horizontal:20),
+                          decoration: BoxDecoration(
+                            color: Colors.grey.withOpacity(0.1),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          
+                          child: 
+                          Row(
+                            children: [
+                              Spacer(),
+                              Icon(FontAwesomeIcons.trash),
+                            ],
+                          ),
                         ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(items[index],
-                              style:TextStyle(
-                                color: isSelected[index]? Color(0xff5038BC) : Colors.black
-
-
-                              ),
-                            ),
-                      
-                            Container(
-                              height: 20,
-                              width: 20,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                border: Border.all(
-                                  color: Color(0xff5038BC),
-                                  width: 2,
-                                
+                        child: Container(
+                          margin: EdgeInsets.symmetric(vertical: 10),
+                          padding: EdgeInsets.symmetric(horizontal:20,vertical: 15),
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.grey),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(items[index],
+                                style:TextStyle(
+                                  color: isSelected[index]? Color(0xff5038BC) : Colors.black
+                        
+                        
                                 ),
-                                color: isSelected[index]? Color(0xff5038BC) : Colors.transparent
                               ),
-                            )
-                          ],
-                        )
-                      
+                        
+                              Container(
+                                height: 20,
+                                width: 20,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  border: Border.all(
+                                    color: Color(0xff5038BC),
+                                    width: 2,
+                                  
+                                  ),
+                                  color: isSelected[index]? Color(0xff5038BC) : Colors.transparent
+                                ),
+                              )
+                            ],
+                          )
+                        
+                        ),
                       ),
                     );
                   }
