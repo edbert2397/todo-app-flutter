@@ -31,10 +31,16 @@ class bottomNavbar extends StatelessWidget {
               size: 40,
             ),
             onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const homeScreen()),
-              );
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(builder: (context) => const homeScreen()),
+              // );
+              // Navigator.pushReplacementNamed(context, homeScreen.routeName);
+              print(ModalRoute.of(context)?.settings.name);
+              print(homeScreen.routeName);
+              if (ModalRoute.of(context)?.settings.name != homeScreen.routeName) {
+                Navigator.pop(context);
+              }
             },
           ),
           IconButton(

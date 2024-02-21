@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todoapp/home_screen.dart';
 import 'package:todoapp/homepage.dart';
 import 'package:todoapp/profile.dart';
 
@@ -33,7 +34,11 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: homepage(),
+      routes: {
+        '/' : (context) => const homeScreen(),
+        // homeScreen.routeName: (context) => const homeScreen(),
+      },
+      // home: homepage(),
     );
   }
 }

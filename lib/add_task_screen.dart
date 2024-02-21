@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:todoapp/models/task.dart';
 
 class addTask extends StatefulWidget {
-  const addTask({super.key});
-
+  const addTask({super.key, required this.addedTask});
+  final Function(Task task) addedTask;
   @override
   State<addTask> createState() => _addTaskState();
 }
@@ -173,7 +174,19 @@ class _addTaskState extends State<addTask> {
                           height: 60,
                           child: ElevatedButton(
                             
-                            onPressed: (){}, 
+                            onPressed: (){
+                              if(_titleController.text.isEmpty || _descriptionController.text.isEmpty ){
+                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Please fill all the fields")));
+                              }
+                              else{
+                                widget.addedTask(Task(
+                                  title: _titleController.text,
+                                  description: _descriptionController.text,
+                                  isSelected: _selectedIndex == 0 ? true : false,
+                                ));
+                                Navigator.pop(context);
+                              }
+                            }, 
                             child: Text(
                               "Create Task",
                               style: TextStyle(

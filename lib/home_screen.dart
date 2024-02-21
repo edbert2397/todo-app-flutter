@@ -4,32 +4,29 @@ import 'package:intl/intl.dart';
 import 'package:todoapp/add_task_screen.dart';
 import 'package:todoapp/bottom_navbar.dart';
 import 'package:todoapp/edit_task_screen.dart';
+import 'package:todoapp/models/task.dart';
 
 class homeScreen extends StatefulWidget {
   const homeScreen({super.key});
+
+  static const String routeName = '/';
 
   @override
   State<homeScreen> createState() => _homeScreenState();
 }
 
 class _homeScreenState extends State<homeScreen> {
-  List<String> items = [
-    'Work Out',
-    'Daily Meeting',
-    'Reading a Book',
-    'Daily Meeting',
-    'Assignment Revision',
-    "fadff",
-    "faaf",
-    "123",
-    "2234",
-    "4ef"
-  ];
+  late List<Task> items;
+  // List<Task> priorityItems = [];
+  // List<Task> dailyItems = [];
+  // late List<bool> isSelectedPriorityItems;
+  // late List<bool> isSelectedDailyItems;
   late List<bool> isSelected;
 
   @override
   void initState() {
     super.initState();
+    items = [];
     isSelected = List.generate(items.length,(_) => false);
   }
   @override
@@ -70,7 +67,15 @@ class _homeScreenState extends State<homeScreen> {
                       backgroundColor: MaterialStateProperty.all(Color(0xff5038BC)),
                     ),
                     onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => addTask()));
+                      Navigator.push(context, 
+                        MaterialPageRoute(builder: (context) => addTask(addedTask: (newTask){
+                          setState(() {
+                            items.add(newTask);
+                            isSelected.add(false);
+                          });
+                        },)
+                        )
+                      );
                     },
                     child: const Text('Add Task',
                             style: TextStyle(
@@ -104,6 +109,7 @@ class _homeScreenState extends State<homeScreen> {
                         onDismissed: (direction){
                           setState(() {
                             items.removeAt(index);
+                            isSelected.removeAt(index);
                           });
                         },
                         background: Container(
@@ -121,6 +127,7 @@ class _homeScreenState extends State<homeScreen> {
                             ],
                           ),
                         ),
+                        
                         child: Container(
                           margin: EdgeInsets.symmetric(vertical: 10),
                           padding: EdgeInsets.symmetric(horizontal:20,vertical: 15),
@@ -131,7 +138,7 @@ class _homeScreenState extends State<homeScreen> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(items[index],
+                              Text(items[index].title,
                                 style:TextStyle(
                                   color: isSelected[index]? Color(0xff5038BC) : Colors.black
                         
