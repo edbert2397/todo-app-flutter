@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:todoapp/home_screen.dart';
 import 'package:todoapp/profile.dart';
 
@@ -43,6 +44,24 @@ class bottomNavbar extends StatelessWidget {
               }
             },
           ),
+          // GestureDetector(
+          //   onTap: (){
+
+          //   },
+          //   child: Container(
+          //     height: 40,
+          //     width: 40,
+          //     decoration: BoxDecoration(
+          //       shape: BoxShape.circle,
+          //       color: Color(0xff5038BC),
+                
+          //     ),
+          //     child: Icon(
+          //       Icons.add,
+          //       color: Colors.white,
+          //     ),
+          //   ),
+          // ),
           IconButton(
             icon: Icon(
               Icons.person,

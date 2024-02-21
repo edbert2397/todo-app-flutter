@@ -59,14 +59,8 @@ class _homeScreenState extends State<homeScreen> {
               ),
               SizedBox(height: 20),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children:[
-                  Text("My Priority Task",
-                    style: TextStyle(
-                      fontSize: 25,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+                children: [
+                  Spacer(),
                   ElevatedButton(
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(Color(0xff5038BC)),
@@ -84,7 +78,7 @@ class _homeScreenState extends State<homeScreen> {
                             else{
                               dailyItems.add(newTask);
                               isSelectedDailyItems.add(false);
-
+                  
                             }
                           });
                         },)
@@ -95,9 +89,52 @@ class _homeScreenState extends State<homeScreen> {
                             style: TextStyle(
                               color: Colors.white,
                             ),
-          
+                        
                       ),
                   ),
+                ],
+              ),
+              SizedBox(height: 20,),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children:[
+                  Text("My Priority Task",
+                    style: TextStyle(
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  // ElevatedButton(
+                  //   style: ButtonStyle(
+                  //     backgroundColor: MaterialStateProperty.all(Color(0xff5038BC)),
+                  //   ),
+                  //   onPressed: () {
+                  //     Navigator.push(context, 
+                  //       MaterialPageRoute(builder: (context) => addTask(addedTask: (newTask){
+                  //         setState(() {
+                  //           items.add(newTask);
+                  //           isSelected.add(false);
+                  //           if(newTask.isPriority == true){
+                  //             priorityItems.add(newTask);
+                  //             isSelectedPriorityItems.add(false);
+                  //           }
+                  //           else{
+                  //             dailyItems.add(newTask);
+                  //             isSelectedDailyItems.add(false);
+
+                  //           }
+                  //         });
+                  //       },)
+                  //       )
+                  //     );
+                  //   },
+                  //   child: const Text('Add Task',
+                  //           style: TextStyle(
+                  //             color: Colors.white,
+                  //           ),
+          
+                  //     ),
+                  // ),
                 ]
               ),
               SizedBox(height: 20,),
@@ -147,7 +184,9 @@ class _homeScreenState extends State<homeScreen> {
                     itemBuilder: (BuildContext context, int index) {
                       return GestureDetector(
                         onTap: () {
-                          isSelectedPriorityItems[index] = !isSelectedPriorityItems[index];
+                          setState((){
+                            isSelectedPriorityItems[index] = !isSelectedPriorityItems[index];
+                          });
                         },
                         onLongPress: (){
                           Navigator.push(
@@ -164,13 +203,17 @@ class _homeScreenState extends State<homeScreen> {
                           width: 150, 
                           margin: EdgeInsets.symmetric(horizontal: 10), 
                           decoration: BoxDecoration(
-                            color: Color(0xff5038BC), 
+                            color:  isSelectedPriorityItems[index] ?Color(0xff5038BC) : Color(0xff5038BC).withOpacity(0.6) , 
                             borderRadius: BorderRadius.circular(25),
                           ),
                           alignment: Alignment.center, 
                           child: Text(
                             priorityItems[index].title,
-                            style: TextStyle(color: Colors.white), 
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 21,
+                            ),
+                             
                           ),
                         ),
                       );
@@ -189,37 +232,37 @@ class _homeScreenState extends State<homeScreen> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  ElevatedButton(
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(Color(0xff5038BC)),
-                    ),
-                    onPressed: () {
-                      Navigator.push(context, 
-                        MaterialPageRoute(builder: (context) => addTask(addedTask: (newTask){
-                          setState(() {
-                            items.add(newTask);
-                            isSelected.add(false);
-                            if(newTask.isPriority == true){
-                              priorityItems.add(newTask);
-                              isSelectedPriorityItems.add(false);
-                            }
-                            else{
-                              dailyItems.add(newTask);
-                              isSelectedDailyItems.add(false);
+                  // ElevatedButton(
+                  //   style: ButtonStyle(
+                  //     backgroundColor: MaterialStateProperty.all(Color(0xff5038BC)),
+                  //   ),
+                  //   onPressed: () {
+                  //     Navigator.push(context, 
+                  //       MaterialPageRoute(builder: (context) => addTask(addedTask: (newTask){
+                  //         setState(() {
+                  //           items.add(newTask);
+                  //           isSelected.add(false);
+                  //           if(newTask.isPriority == true){
+                  //             priorityItems.add(newTask);
+                  //             isSelectedPriorityItems.add(false);
+                  //           }
+                  //           else{
+                  //             dailyItems.add(newTask);
+                  //             isSelectedDailyItems.add(false);
 
-                            }
-                          });
-                        },)
-                        )
-                      );
-                    },
-                    child: const Text('Add Task',
-                            style: TextStyle(
-                              color: Colors.white,
-                            ),
+                  //           }
+                  //         });
+                  //       },)
+                  //       )
+                  //     );
+                  //   },
+                  //   child: const Text('Add Task',
+                  //           style: TextStyle(
+                  //             color: Colors.white,
+                  //           ),
           
-                      ),
-                  ),
+                  //     ),
+                  // ),
                 ]
               ),
               Expanded(
