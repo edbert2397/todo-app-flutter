@@ -64,6 +64,7 @@ class _homeScreenState extends State<homeScreen> {
                   ElevatedButton(
                     style: ButtonStyle(
                       backgroundColor: MaterialStateProperty.all(Color(0xff5038BC)),
+                      minimumSize: MaterialStateProperty.all<Size>(Size(120, 55)),
                     ),
                     onPressed: () {
                       Navigator.push(context, 
@@ -95,89 +96,16 @@ class _homeScreenState extends State<homeScreen> {
                 ],
               ),
               SizedBox(height: 20,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children:[
-                  Text("My Priority Task",
-                    style: TextStyle(
-                      fontSize: 25,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  // ElevatedButton(
-                  //   style: ButtonStyle(
-                  //     backgroundColor: MaterialStateProperty.all(Color(0xff5038BC)),
-                  //   ),
-                  //   onPressed: () {
-                  //     Navigator.push(context, 
-                  //       MaterialPageRoute(builder: (context) => addTask(addedTask: (newTask){
-                  //         setState(() {
-                  //           items.add(newTask);
-                  //           isSelected.add(false);
-                  //           if(newTask.isPriority == true){
-                  //             priorityItems.add(newTask);
-                  //             isSelectedPriorityItems.add(false);
-                  //           }
-                  //           else{
-                  //             dailyItems.add(newTask);
-                  //             isSelectedDailyItems.add(false);
-
-                  //           }
-                  //         });
-                  //       },)
-                  //       )
-                  //     );
-                  //   },
-                  //   child: const Text('Add Task',
-                  //           style: TextStyle(
-                  //             color: Colors.white,
-                  //           ),
-          
-                  //     ),
-                  // ),
-                ]
+              Text("My Priority Task",
+                style: TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               SizedBox(height: 20,),
-              // priorityItems.isNotEmpty? SizedBox(
-              //   width: double.infinity,
-              //   child: CarouselSlider.builder(
-
-              //     itemCount: priorityItems.length, 
-              //     options: CarouselOptions(
-              //       height: 100,
-              //       // autoPlay: true,
-              //       enlargeCenterPage: true,
-              //       pageSnapping: true,
-              //       viewportFraction: 0.4,
-        
-              //     ),
-              //     itemBuilder: (BuildContext context, int itemIndex, int pageViewIndex){
-              //       return ClipRRect(
-              //         borderRadius: BorderRadius.circular(25),
-              //         child: GestureDetector(
-              //           onTap: () {
-              //             // Navigator.push(
-              //             //   context,
-              //             //   MaterialPageRoute(builder: (context) => DetailPage(movieId: snapshot.data.results[itemIndex].id)),
-              //             // );
-              //           },
-              //           child: Container(
-              //             // height: 400,
-              //             width: 200,
-              //             decoration: BoxDecoration(
-              //               color: Color(0xff5038BC),
-              //             ),
-              //             child: Text(priorityItems[itemIndex].title),
-              //           ),
-              //         ),
-              //       );
-              //     }, 
-              //   )
-              // )
-              // : Container() ,
               priorityItems.isNotEmpty
               ? SizedBox(
-                  height: 150, 
+                  height: 120, 
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     itemCount: priorityItems.length,
@@ -199,21 +127,43 @@ class _homeScreenState extends State<homeScreen> {
                             })),
                           );
                         },
-                        child: Container(
-                          width: 150, 
-                          margin: EdgeInsets.symmetric(horizontal: 10), 
-                          decoration: BoxDecoration(
-                            color:  isSelectedPriorityItems[index] ?Color(0xff5038BC) : Color(0xff5038BC).withOpacity(0.6) , 
-                            borderRadius: BorderRadius.circular(25),
-                          ),
-                          alignment: Alignment.center, 
-                          child: Text(
-                            priorityItems[index].title,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 21,
+                        child: Dismissible(
+                          direction: DismissDirection.up,
+                          key : UniqueKey(),
+                          onDismissed: (direction){
+                            setState(() {
+                              // items.removeAt(index);
+                              // isSelected.removeAt(index);
+
+                              priorityItems.removeAt(index);
+                              isSelectedPriorityItems.removeAt(index);
+                            });
+                          },
+                          background: Container(
+                            padding: EdgeInsets.symmetric(horizontal:20),
+                            decoration: BoxDecoration(
+                              color: Colors.grey.withOpacity(0.1),
+                              borderRadius: BorderRadius.circular(10),
                             ),
-                             
+                            
+                            child: Center(child: Icon(FontAwesomeIcons.trash)),
+                          ),
+                          child: Container(
+                            width: 150, 
+                            margin: EdgeInsets.symmetric(horizontal: 10), 
+                            decoration: BoxDecoration(
+                              color:  isSelectedPriorityItems[index] ?Color(0xff5038BC) : Color(0xff5038BC).withOpacity(0.6) , 
+                              borderRadius: BorderRadius.circular(25),
+                            ),
+                            alignment: Alignment.center, 
+                            child: Text(
+                              priorityItems[index].title,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 21,
+                              ),
+                               
+                            ),
                           ),
                         ),
                       );
@@ -223,47 +173,12 @@ class _homeScreenState extends State<homeScreen> {
               : Container(), 
 
               SizedBox(height: 20,),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children:[
-                  Text("My Daily Task",
-                    style: TextStyle(
-                      fontSize: 25,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  // ElevatedButton(
-                  //   style: ButtonStyle(
-                  //     backgroundColor: MaterialStateProperty.all(Color(0xff5038BC)),
-                  //   ),
-                  //   onPressed: () {
-                  //     Navigator.push(context, 
-                  //       MaterialPageRoute(builder: (context) => addTask(addedTask: (newTask){
-                  //         setState(() {
-                  //           items.add(newTask);
-                  //           isSelected.add(false);
-                  //           if(newTask.isPriority == true){
-                  //             priorityItems.add(newTask);
-                  //             isSelectedPriorityItems.add(false);
-                  //           }
-                  //           else{
-                  //             dailyItems.add(newTask);
-                  //             isSelectedDailyItems.add(false);
-
-                  //           }
-                  //         });
-                  //       },)
-                  //       )
-                  //     );
-                  //   },
-                  //   child: const Text('Add Task',
-                  //           style: TextStyle(
-                  //             color: Colors.white,
-                  //           ),
-          
-                  //     ),
-                  // ),
-                ]
+              
+              Text("My Daily Task",
+                style: TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               Expanded(
                 child: ListView.builder(
@@ -277,7 +192,6 @@ class _homeScreenState extends State<homeScreen> {
                         });
                       },
                       onLongPress: (){
-                        print(index);
                         Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => editTask(idx: index,task: dailyItems[index],editedTask: (newEdittedtask){
@@ -317,7 +231,7 @@ class _homeScreenState extends State<homeScreen> {
                         ),
                         
                         child: Container(
-                          margin: EdgeInsets.symmetric(vertical: 10),
+                          margin: EdgeInsets.symmetric(vertical: 6),
                           padding: EdgeInsets.symmetric(horizontal:20,vertical: 15),
                           decoration: BoxDecoration(
                             border: Border.all(color: Colors.grey),
