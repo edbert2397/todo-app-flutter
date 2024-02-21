@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:todoapp/models/task.dart';
 
 class editTask extends StatefulWidget {
-  editTask({super.key, required this.idx});
+  editTask({super.key, required this.idx,required this.task,required this.editedTask});
 
   final int idx;
+  final Task task;
+  final Function (Task task) editedTask; 
+
   @override
   State<editTask> createState() => _editTaskState();
 }
@@ -64,8 +68,10 @@ class _editTaskState extends State<editTask> {
                       TextField(
                         
                         controller: _editTitleController,
+
                         decoration: InputDecoration(
                           contentPadding: EdgeInsets.symmetric(horizontal:20,vertical: 15),
+                          hintText: widget.task.title,
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(10)),
                             borderSide: BorderSide(color: Colors.grey)
@@ -95,13 +101,19 @@ class _editTaskState extends State<editTask> {
                           
                         ),
                         child: Center(
-                          child: Text(
-                            "Daily Task",
-                            style: TextStyle(
-                              color:Colors.white,
-                              fontSize: 14,
-                            ),
-                          ),
+                          child: widget.task.isPriority? Text(
+                              "Priority Task",
+                              style: TextStyle(
+                                color:Colors.white,
+                                fontSize: 14,
+                              ),
+                            ):Text(
+                              "Daily Task",
+                              style: TextStyle(
+                                color:Colors.white,
+                                fontSize: 14,
+                              ),
+                          )
                         )
 
                       ),
@@ -132,6 +144,7 @@ class _editTaskState extends State<editTask> {
                         controller: _editDescriptionController,
                         maxLines: 5,
                         decoration: InputDecoration(
+                          hintText: widget.task.description,
                           contentPadding: EdgeInsets.symmetric(horizontal:20,vertical: 15),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -149,7 +162,24 @@ class _editTaskState extends State<editTask> {
                             height: 60,
                             child: ElevatedButton(
                               
-                              onPressed: (){}, 
+                              onPressed: (){
+                                if(_editTitleController.text.isEmpty || _editDescriptionController.text.isEmpty){
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text("Please fill all the fields"),
+                                      duration: Duration(seconds: 2),
+                                    ),
+                                  );
+                                }
+                                else{
+                                  widget.editedTask(Task(
+                                    title: _editTitleController.text,
+                                    description: _editDescriptionController.text,
+                                    isPriority: false,
+                                  ));
+                                  Navigator.pop(context);
+                                }
+                              }, 
                               child: Text(
                                 "Edit Task",
                                 style: TextStyle(

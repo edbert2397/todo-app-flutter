@@ -36,8 +36,8 @@ class bottomNavbar extends StatelessWidget {
               //   MaterialPageRoute(builder: (context) => const homeScreen()),
               // );
               // Navigator.pushReplacementNamed(context, homeScreen.routeName);
-              print(ModalRoute.of(context)?.settings.name);
-              print(homeScreen.routeName);
+              // print(ModalRoute.of(context)?.settings.name);
+              // print(homeScreen.routeName);
               if (ModalRoute.of(context)?.settings.name != homeScreen.routeName) {
                 Navigator.pop(context);
               }

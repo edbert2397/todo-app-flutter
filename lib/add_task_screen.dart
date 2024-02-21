@@ -182,7 +182,7 @@ class _addTaskState extends State<addTask> {
                                 widget.addedTask(Task(
                                   title: _titleController.text,
                                   description: _descriptionController.text,
-                                  isSelected: _selectedIndex == 0 ? true : false,
+                                  isPriority: _selectedIndex == 0 ? true : false,
                                 ));
                                 Navigator.pop(context);
                               }
