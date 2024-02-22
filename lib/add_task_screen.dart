@@ -175,13 +175,13 @@ class _addTaskState extends State<addTask> {
                           child: ElevatedButton(
                             
                             onPressed: (){
-                              if(_titleController.text.isEmpty || _descriptionController.text.isEmpty ){
-                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Please fill all the fields")));
+                              if(_titleController.text.isEmpty ){
+                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Please fill title Field")));
                               }
                               else{
                                 widget.addedTask(Task(
                                   title: _titleController.text,
-                                  description: _descriptionController.text,
+                                  description: _descriptionController.text == null ? "" : _descriptionController.text,
                                   isPriority: _selectedIndex == 0 ? true : false,
                                 ));
                                 Navigator.pop(context);

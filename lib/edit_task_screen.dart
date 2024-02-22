@@ -163,10 +163,10 @@ class _editTaskState extends State<editTask> {
                             child: ElevatedButton(
                               
                               onPressed: (){
-                                if(_editTitleController.text.isEmpty || _editDescriptionController.text.isEmpty){
+                                if(_editTitleController.text.isEmpty){
                                   ScaffoldMessenger.of(context).showSnackBar(
                                     SnackBar(
-                                      content: Text("Please fill all the fields"),
+                                      content: Text("Please fill title field"),
                                       duration: Duration(seconds: 2),
                                     ),
                                   );
@@ -174,7 +174,7 @@ class _editTaskState extends State<editTask> {
                                 else{
                                   widget.editedTask(Task(
                                     title: _editTitleController.text,
-                                    description: _editDescriptionController.text,
+                                    description: _editDescriptionController.text == null ? "" : _editDescriptionController.text,
                                     isPriority: false,
                                   ));
                                   Navigator.pop(context);

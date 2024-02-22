@@ -102,19 +102,45 @@ class _homeScreenState extends State<homeScreen> {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              SizedBox(height: 20,),
+              SizedBox(height: 6,),
               priorityItems.isNotEmpty
               ? SizedBox(
-                  height: 120, 
+                  height: 150, 
                   child: ListView.builder(
                     scrollDirection: Axis.horizontal,
                     itemCount: priorityItems.length,
                     itemBuilder: (BuildContext context, int index) {
                       return GestureDetector(
                         onTap: () {
-                          setState((){
-                            isSelectedPriorityItems[index] = !isSelectedPriorityItems[index];
-                          });
+                          // setState((){
+                          //   isSelectedPriorityItems[index] = !isSelectedPriorityItems[index];
+                          // });
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text(priorityItems[index].title), 
+                                content: Text(priorityItems[index].description), 
+                                actions:[
+                                  TextButton(
+                                    child: Text("Close"),
+                                    onPressed: () {
+                                      Navigator.of(context).pop(); 
+                                    },
+                                  ),
+                                  TextButton(
+                                    child: isSelectedPriorityItems[index] == true? Text("Mark as not Done") : Text("Mark as Done"),
+                                    onPressed: () {
+                                      setState(() {
+                                        isSelectedPriorityItems[index] == true? isSelectedPriorityItems[index] = false: isSelectedPriorityItems[index] = true; 
+                                        Navigator.of(context).pop(); 
+                                      });
+                                    },
+                                  ),
+                                ],
+                              );
+                            },
+                          );
                         },
                         onLongPress: (){
                           Navigator.push(
@@ -149,7 +175,7 @@ class _homeScreenState extends State<homeScreen> {
                             child: Center(child: Icon(FontAwesomeIcons.trash)),
                           ),
                           child: Container(
-                            width: 150, 
+                            width: 120, 
                             margin: EdgeInsets.symmetric(horizontal: 10), 
                             decoration: BoxDecoration(
                               color:  isSelectedPriorityItems[index] ?Color(0xff5038BC) : Color(0xff5038BC).withOpacity(0.6) , 
@@ -186,10 +212,36 @@ class _homeScreenState extends State<homeScreen> {
                   itemBuilder: (context,index){
                     return GestureDetector(
                       onTap: (){
-                        setState(() {
-                          // isSelected[index] = !isSelected[index];
-                          isSelectedDailyItems[index] = !isSelectedDailyItems[index];
-                        });
+                        // setState(() {
+                        //   // isSelected[index] = !isSelected[index];
+                        //   isSelectedDailyItems[index] = !isSelectedDailyItems[index];
+                        // });
+                         showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: Text(dailyItems[index].title), 
+                              content: Text(dailyItems[index].description), 
+                              actions: [
+                                TextButton(
+                                  child: Text("Close"),
+                                  onPressed: () {
+                                    Navigator.of(context).pop(); 
+                                  },
+                                ),
+                                TextButton(
+                                  child: isSelectedDailyItems[index] == true ? Text("Mark as not Done") : Text("Mark as Done"),
+                                  onPressed: () {
+                                    setState(() {
+                                      isSelectedDailyItems[index] == true? isSelectedDailyItems[index] = false : isSelectedDailyItems[index] = true; 
+                                      Navigator.of(context).pop(); 
+                                    });
+                                  },
+                                ),
+                              ],
+                            );
+                          },
+                        );
                       },
                       onLongPress: (){
                         Navigator.push(
