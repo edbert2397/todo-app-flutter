@@ -2,10 +2,13 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:todoapp/add_task_screen.dart';
 import 'package:todoapp/bottom_navbar.dart';
 import 'package:todoapp/edit_task_screen.dart';
 import 'package:todoapp/models/task.dart';
+import 'dart:convert';
+
 
 class homeScreen extends StatefulWidget {
   const homeScreen({super.key});
@@ -26,14 +29,54 @@ class _homeScreenState extends State<homeScreen> {
 
   @override
   void initState() {
-    super.initState();
-    items = [];
+    // super.initState();
+    // items = [];
     priorityItems = [];
     dailyItems = [];
-    isSelected = List.generate(items.length,(_) => false);
+    // isSelected = List.generate(items.length,(_) => false);
     isSelectedPriorityItems = List.generate(priorityItems.length,(_) => false);
     isSelectedDailyItems = List.generate(dailyItems.length,(_) => false);
+
+    super.initState();
+    loadPriorityItems().then((loadedItems) {
+      setState(() {
+        priorityItems = loadedItems;
+        isSelectedPriorityItems = List.generate(priorityItems.length, (_) => false);
+      });
+    });
+    loadDailyItems().then((loadedItems) {
+      setState(() {
+        dailyItems = loadedItems;
+        isSelectedDailyItems = List.generate(dailyItems.length, (_) => false);
+      });
+    });
   }
+
+  Future<void> savePriorityItems(List<Task> items) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<String> stringList = items.map((item) => jsonEncode(item.toJson())).toList();
+    await prefs.setStringList('priorityItems', stringList);
+  }
+
+  Future<List<Task>> loadPriorityItems() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<String> stringList = prefs.getStringList('priorityItems') ?? [];
+    List<Task> items = stringList.map((itemStr) => Task.fromJson(jsonDecode(itemStr))).toList();
+    return items;
+  }
+  Future<void> saveDailyItems(List<Task> items) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<String> stringList = items.map((item) => jsonEncode(item.toJson())).toList();
+    await prefs.setStringList('dailyItems', stringList);
+  }
+
+  Future<List<Task>> loadDailyItems() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<String> stringList = prefs.getStringList('dailyItems') ?? [];
+    List<Task> items = stringList.map((itemStr) => Task.fromJson(jsonDecode(itemStr))).toList();
+    return items;
+  }
+  
   @override
   Widget build(BuildContext context) {
     return 
@@ -70,15 +113,19 @@ class _homeScreenState extends State<homeScreen> {
                       Navigator.push(context, 
                         MaterialPageRoute(builder: (context) => addTask(addedTask: (newTask){
                           setState(() {
-                            items.add(newTask);
-                            isSelected.add(false);
+                            // items.add(newTask);
+                            // isSelected.add(false);
                             if(newTask.isPriority == true){
+                              // priorityItems.add(newTask);
+                              // isSelectedPriorityItems.add(false);
                               priorityItems.add(newTask);
                               isSelectedPriorityItems.add(false);
+                              savePriorityItems(priorityItems); 
                             }
                             else{
                               dailyItems.add(newTask);
                               isSelectedDailyItems.add(false);
+                              saveDailyItems(dailyItems); 
                   
                             }
                           });
@@ -129,10 +176,11 @@ class _homeScreenState extends State<homeScreen> {
                                     },
                                   ),
                                   TextButton(
-                                    child: isSelectedPriorityItems[index] == true? Text("Mark as not Done") : Text("Mark as Done"),
+                                    child: priorityItems[index].isSelected == true? Text("Mark as not Done") : Text("Mark as Done"),
                                     onPressed: () {
                                       setState(() {
-                                        isSelectedPriorityItems[index] == true? isSelectedPriorityItems[index] = false: isSelectedPriorityItems[index] = true; 
+                                        priorityItems[index].isSelected == true? priorityItems[index].isSelected = false: priorityItems[index].isSelected = true;
+                                        savePriorityItems(priorityItems); 
                                         Navigator.of(context).pop(); 
                                       });
                                     },
@@ -149,6 +197,7 @@ class _homeScreenState extends State<homeScreen> {
                               setState(() {
                                 priorityItems[index] = newEdittedtask;
                                 isSelectedPriorityItems[index] = false;
+                                savePriorityItems(priorityItems);
                               });
                             })),
                           );
@@ -163,6 +212,7 @@ class _homeScreenState extends State<homeScreen> {
 
                               priorityItems.removeAt(index);
                               isSelectedPriorityItems.removeAt(index);
+                              savePriorityItems(priorityItems);
                             });
                           },
                           background: Container(
@@ -178,7 +228,7 @@ class _homeScreenState extends State<homeScreen> {
                             width: 120, 
                             margin: EdgeInsets.symmetric(horizontal: 10), 
                             decoration: BoxDecoration(
-                              color:  isSelectedPriorityItems[index] ?Color(0xff5038BC) : Color(0xff5038BC).withOpacity(0.6) , 
+                              color:  priorityItems[index].isSelected ?Color(0xff5038BC) : Color(0xff5038BC).withOpacity(0.6) , 
                               borderRadius: BorderRadius.circular(25),
                             ),
                             alignment: Alignment.center, 
@@ -230,10 +280,10 @@ class _homeScreenState extends State<homeScreen> {
                                   },
                                 ),
                                 TextButton(
-                                  child: isSelectedDailyItems[index] == true ? Text("Mark as not Done") : Text("Mark as Done"),
+                                  child: dailyItems[index].isSelected == true ? Text("Mark as not Done") : Text("Mark as Done"),
                                   onPressed: () {
                                     setState(() {
-                                      isSelectedDailyItems[index] == true? isSelectedDailyItems[index] = false : isSelectedDailyItems[index] = true; 
+                                      dailyItems[index].isSelected == true? dailyItems[index].isSelected = false : dailyItems[index].isSelected = true; 
                                       Navigator.of(context).pop(); 
                                     });
                                   },
@@ -250,6 +300,7 @@ class _homeScreenState extends State<homeScreen> {
                             setState(() {
                               dailyItems[index] = newEdittedtask;
                               isSelectedDailyItems[index] = false;
+                              saveDailyItems(dailyItems);
                             });
                           })),
                         );
@@ -264,6 +315,7 @@ class _homeScreenState extends State<homeScreen> {
 
                             dailyItems.removeAt(index);
                             isSelectedDailyItems.removeAt(index);
+                            saveDailyItems(dailyItems);
                           });
                         },
                         background: Container(
@@ -294,7 +346,7 @@ class _homeScreenState extends State<homeScreen> {
                             children: [
                               Text(dailyItems[index].title,
                                 style:TextStyle(
-                                  color: isSelectedDailyItems[index]? Color(0xff5038BC) : Colors.black
+                                  color: dailyItems[index].isSelected? Color(0xff5038BC) : Colors.black
                         
                         
                                 ),
@@ -310,7 +362,7 @@ class _homeScreenState extends State<homeScreen> {
                                     width: 2,
                                   
                                   ),
-                                  color: isSelectedDailyItems[index]? Color(0xff5038BC) : Colors.transparent
+                                  color: dailyItems[index].isSelected? Color(0xff5038BC) : Colors.transparent
                                 ),
                               )
                             ],

@@ -183,6 +183,7 @@ class _addTaskState extends State<addTask> {
                                   title: _titleController.text,
                                   description: _descriptionController.text == null ? "" : _descriptionController.text,
                                   isPriority: _selectedIndex == 0 ? true : false,
+                                  isSelected: false,
                                 ));
                                 Navigator.pop(context);
                               }

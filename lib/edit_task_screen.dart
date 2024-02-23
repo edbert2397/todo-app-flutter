@@ -176,6 +176,7 @@ class _editTaskState extends State<editTask> {
                                     title: _editTitleController.text,
                                     description: _editDescriptionController.text == null ? "" : _editDescriptionController.text,
                                     isPriority: false,
+                                    isSelected: false,
                                   ));
                                   Navigator.pop(context);
                                 }
