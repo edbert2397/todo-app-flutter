@@ -13,9 +13,16 @@ class editTask extends StatefulWidget {
 }
 
 class _editTaskState extends State<editTask> {
-  final TextEditingController _editTitleController = TextEditingController();
-  final TextEditingController _editDescriptionController = TextEditingController();
+  late TextEditingController _editTitleController;
+  late TextEditingController _editDescriptionController;
   
+  @override
+  void initState() {
+    super.initState();
+    _editTitleController = TextEditingController(text: widget.task.title);
+    _editDescriptionController = TextEditingController(text: widget.task.description);
+  }
+
   @override
   void dispose(){
     _editTitleController.dispose();
@@ -71,7 +78,6 @@ class _editTaskState extends State<editTask> {
 
                         decoration: InputDecoration(
                           contentPadding: EdgeInsets.symmetric(horizontal:20,vertical: 15),
-                          hintText: widget.task.title,
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(10)),
                             borderSide: BorderSide(color: Colors.grey)
@@ -144,7 +150,6 @@ class _editTaskState extends State<editTask> {
                         controller: _editDescriptionController,
                         maxLines: 5,
                         decoration: InputDecoration(
-                          hintText: widget.task.description,
                           contentPadding: EdgeInsets.symmetric(horizontal:20,vertical: 15),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.all(Radius.circular(10)),
