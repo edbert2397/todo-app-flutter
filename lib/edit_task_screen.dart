@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:todoapp/components/description_input.dart';
+import 'package:todoapp/components/title_input.dart';
 import 'package:todoapp/models/task.dart';
 
 class editTask extends StatefulWidget {
@@ -64,30 +66,7 @@ class _editTaskState extends State<editTask> {
                   child:Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text("Title",
-                        style: TextStyle(
-                          color: Color(0xff5038BC),
-                          decoration: TextDecoration.none,
-                          fontSize: 20,
-                        ),
-                      ),
-                      SizedBox(height: 10),
-                      TextField(
-                        
-                        controller: _editTitleController,
-
-                        decoration: InputDecoration(
-                          contentPadding: EdgeInsets.symmetric(horizontal:20,vertical: 15),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                            borderSide: BorderSide(color: Colors.grey)
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                            borderSide: BorderSide(color: Color(0xff5038BC))
-                          ),
-                        ),
-                      ),
+                      titleInput(controller: _editTitleController),
                       SizedBox(height: 40,),
                       Text("Category",
                         style: TextStyle(
@@ -124,43 +103,8 @@ class _editTaskState extends State<editTask> {
 
                       ),
 
-                      // SizedBox(
-                      //   width: double.infinity,
-                      //   height: 50,
-
-                      //   child: Text(
-                      //     "Daily Task",
-                      //     style: TextStyle(
-                      //       color:Colors.white,
-                      //     ),
-                      //   )
-                      // ),
-
                       SizedBox(height: 50),
-                      Text("Description",
-                        style: TextStyle(
-                          color: Color(0xff5038BC),
-                          decoration: TextDecoration.none,
-                          fontSize: 20,
-                        ),
-                      ),
-                      SizedBox(height: 10),
-                      TextField(
-                        
-                        controller: _editDescriptionController,
-                        maxLines: 5,
-                        decoration: InputDecoration(
-                          contentPadding: EdgeInsets.symmetric(horizontal:20,vertical: 15),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                            borderSide: BorderSide(color: Colors.grey)
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
-                            borderSide: BorderSide(color: Color(0xff5038BC))
-                          ),
-                        ),
-                      ),
+                      descriptionInput(controller: _editDescriptionController),
                       SizedBox(height: 40,),
                       SizedBox(
                             width: double.infinity,
@@ -180,7 +124,7 @@ class _editTaskState extends State<editTask> {
                                   widget.editedTask(Task(
                                     title: _editTitleController.text,
                                     description: _editDescriptionController.text == null ? "" : _editDescriptionController.text,
-                                    isPriority: false,
+                                    isPriority: widget.task.isPriority,
                                     isSelected: false,
                                   ));
                                   Navigator.pop(context);

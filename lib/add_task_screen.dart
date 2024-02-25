@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:todoapp/components/category_button.dart';
+import 'package:todoapp/components/description_input.dart';
+import 'package:todoapp/components/title_input.dart';
 import 'package:todoapp/models/task.dart';
 
 class addTask extends StatefulWidget {
@@ -31,13 +34,17 @@ class _addTaskState extends State<addTask> {
         child: Column(
           children: [
             SizedBox(height: 40),
-            Text(
-              "Add Task",
-              style: TextStyle(
-                color: Colors.white,
-                decoration: TextDecoration.none,
-                fontSize: 30
-              ),
+            Row(
+              children: [
+                Text(
+                  "Add Task",
+                  style: TextStyle(
+                    color: Colors.white,
+                    decoration: TextDecoration.none,
+                    fontSize: 30
+                  ),
+                ),
+              ],
             ),
             SizedBox(height: 50),
             Expanded(
@@ -54,35 +61,7 @@ class _addTaskState extends State<addTask> {
                 child:Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Title",
-                      style: TextStyle(
-                        color: Color(0xff5038BC),
-                        decoration: TextDecoration.none,
-                        fontSize: 20,
-                      ),
-                    ),
-                    SizedBox(height: 10),
-                    TextField(
-                      
-                      controller: _titleController,
-                      decoration: InputDecoration(
-                        contentPadding: EdgeInsets.symmetric(horizontal:20,vertical: 15),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                          borderSide: BorderSide(color: Colors.grey),
-                          
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                          borderSide: BorderSide(color: Color(0xff5038BC))
-                        ),
-                        hintText: "Enter title (max 25 characters)"
-                      ),
-                      inputFormatters: [
-                        LengthLimitingTextInputFormatter(25),
-                      ],
-                      
-                    ),
+                    titleInput(controller: _titleController),
                     SizedBox(height: 40,),
                     Text("Category",
                       style: TextStyle(
@@ -95,86 +74,31 @@ class _addTaskState extends State<addTask> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        SizedBox(
-                          width: 150,
-                          height: 50,
-                          child: ElevatedButton(
-                            
-                            onPressed: (){
-                              setState(() {
-                                _selectedIndex = 0;
-                              });
-                            }, 
-                            child: Text(
-                              "Priority Task",
-                              style: TextStyle(
-                                color: _selectedIndex == 0?Colors.white : Color(0xff5038BC),
-                              ),
-                            ),
-                            style: ElevatedButton.styleFrom(
-                          
-                              backgroundColor: _selectedIndex == 0? Color(0xff5038BC): Colors.white,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10),
-                          
-                              )
-                            )
-                          ),
+                        categoryButton(
+                          index: 0, 
+                          text: "Priority Task", 
+                          selectedIndex: _selectedIndex, 
+                          onSelected: (index){
+                            setState(() {
+                              _selectedIndex = index;
+                            });
+                          } 
                         ),
                         SizedBox(width: 20,),
-                        SizedBox(
-                          width: 150,
-                          height: 50,
-                          child: ElevatedButton(
-                          
-                            onPressed: (){
-                              setState(() {
-                                _selectedIndex = 1;
-                              });
-                            }, 
-                            child: Text(
-                              "Daily Task",
-                              style: TextStyle(
-                                color: _selectedIndex == 1?Colors.white : Color(0xff5038BC),
-                              ),                          
-                            ),
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: _selectedIndex == 1? Color(0xff5038BC): Colors.white,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10),
-                          
-                              )
-                            )
-                          ),
-                        ),
-
+                        categoryButton(
+                          index: 1, 
+                          text: "Daily Task", 
+                          selectedIndex: _selectedIndex, 
+                          onSelected: (index){
+                            setState(() {
+                              _selectedIndex = index;
+                            });
+                          }
+                        )
                       ],
                     ),
                     SizedBox(height: 50),
-                    Text("Description",
-                      style: TextStyle(
-                        color: Color(0xff5038BC),
-                        decoration: TextDecoration.none,
-                        fontSize: 20,
-                      ),
-                    ),
-                    SizedBox(height: 10),
-                    TextField(
-                      
-                      controller: _descriptionController,
-                      maxLines: 5,
-                      decoration: InputDecoration(
-                        contentPadding: EdgeInsets.symmetric(horizontal:20,vertical: 15),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                          borderSide: BorderSide(color: Colors.grey)
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(10)),
-                          borderSide: BorderSide(color: Color(0xff5038BC))
-                        ),
-                      ),
-                    ),
+                    descriptionInput(controller: _descriptionController),
                     SizedBox(height: 40,),
                     SizedBox(
                           width: double.infinity,
