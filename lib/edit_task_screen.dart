@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todoapp/components/back_button.dart';
 import 'package:todoapp/components/description_input.dart';
 import 'package:todoapp/components/title_input.dart';
 import 'package:todoapp/models/task.dart';
@@ -43,12 +44,26 @@ class _editTaskState extends State<editTask> {
           child: Column(
             children: [
               SizedBox(height: 40),
-              Text(
-                "Edit Task",
-                style: TextStyle(
-                  color: Colors.white,
-                  decoration: TextDecoration.none,
-                  fontSize: 30
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 30.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    backButton(),
+                    Text(
+                      "Edit Task",
+                      style: TextStyle(
+                        color: Colors.white,
+                        decoration: TextDecoration.none,
+                        fontSize: 30
+                      ),
+                    ),
+                    // supaya text edit task ditengah
+                    Container(
+                      height: 30,
+                      width: 30,
+                    )
+                  ],
                 ),
               ),
               SizedBox(height: 50),

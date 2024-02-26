@@ -210,14 +210,18 @@ class _homeScreenState extends State<homeScreen> {
                   color:  priorityItems[index].isSelected ?Color(0xff5038BC) : Color(0xffa8bcdd) , 
                   borderRadius: BorderRadius.circular(25),
                 ),
-                alignment: Alignment.center, 
-                child: Text(
-                  priorityItems[index].title,
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 21,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Center(
+                    child: Text(
+                      priorityItems[index].title,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 21,
+                      ),
+                    ),
                   ),
-                    
                 ),
               ),
             ),

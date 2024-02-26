@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:todoapp/components/back_button.dart';
 import 'package:todoapp/components/category_button.dart';
 import 'package:todoapp/components/description_input.dart';
 import 'package:todoapp/components/title_input.dart';
@@ -34,17 +35,33 @@ class _addTaskState extends State<addTask> {
         child: Column(
           children: [
             SizedBox(height: 40),
-            Row(
-              children: [
-                Text(
-                  "Add Task",
-                  style: TextStyle(
-                    color: Colors.white,
-                    decoration: TextDecoration.none,
-                    fontSize: 30
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal:30.0),
+              child: Row(
+                
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  backButton(),
+                  Expanded(
+                    child: Center(
+                      child: Text(
+                        "Add Task",
+                        style: TextStyle(
+                          color: Colors.white,
+                          decoration: TextDecoration.none,
+                          fontSize: 30
+                        ),
+                      ),
+                    ),
                   ),
-                ),
-              ],
+                  // supaya add text add task ada ditengah 
+                  Container(
+                    height: 30,
+                    width: 30,
+                  )
+              
+                ],
+              ),
             ),
             SizedBox(height: 50),
             Expanded(
