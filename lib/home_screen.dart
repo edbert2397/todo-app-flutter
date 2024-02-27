@@ -1,4 +1,3 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
@@ -9,7 +8,6 @@ import 'package:todoapp/edit_task_screen.dart';
 import 'package:todoapp/models/task.dart';
 import 'dart:convert';
 
-import 'package:todoapp/priority_task_list.dart';
 
 
 class homeScreen extends StatefulWidget {
@@ -72,40 +70,50 @@ class _homeScreenState extends State<homeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 30,vertical: 30),  
-        child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              
-              buildTopBar(),
-              SizedBox(height: 15),
-              buildWelcomeText(),
-              SizedBox(height: 20,),
-              Text("My Priority Task",
-                style: TextStyle(
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              SizedBox(height: 6,),
-              priorityItems.isNotEmpty ? priorityItemsList() : Container(),
-
-              SizedBox(height: 20,),
-              Text("My Daily Task",
-                style: TextStyle(
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              dailyTaskList(),
-              SizedBox(height: 25,),
-              buildAddTaskSection(),              
-
-            ],
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [Colors.grey.shade200,Colors.white], 
           ),
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 30,vertical: 30),  
+          child: Column(
+            
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                
+                buildTopBar(),
+                const SizedBox(height: 15),
+                buildWelcomeText(),
+                const SizedBox(height: 20,),
+                const Text("My Priority Task",
+                  style: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                const SizedBox(height: 6,),
+                priorityItems.isNotEmpty ? priorityItemsList() : Container(),
+        
+                const SizedBox(height: 20,),
+                const Text("My Daily Task",
+                  style: TextStyle(
+                    fontSize: 25,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                dailyTaskList(),
+                const SizedBox(height: 25,),
+                buildAddTaskSection(),              
+        
+              ],
+            ),
+        ),
       ),
-        bottomNavigationBar: bottomNavbar(),
+        bottomNavigationBar: const bottomNavbar(),
     );
   }
 
@@ -113,13 +121,13 @@ class _homeScreenState extends State<homeScreen> {
     return Row(
       children: [
         timeDisplay(),
-        Spacer(),
-        Icon(Icons.notifications,color: Color(0xff5038BC),)
+        const Spacer(),
+        const Icon(Icons.notifications,color: Color(0xff5038BC),)
       ],
     );
   }
   Column buildWelcomeText(){
-    return Column(
+    return const Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text("Welcome Edbert.H",
@@ -154,13 +162,13 @@ class _homeScreenState extends State<homeScreen> {
                     content: Text(priorityItems[index].description), 
                     actions:[
                       TextButton(
-                        child: Text("Close"),
+                        child: const Text("Close"),
                         onPressed: () {
                           Navigator.of(context).pop(); 
                         },
                       ),
                       TextButton(
-                        child: priorityItems[index].isSelected == true? Text("Mark as not Done") : Text("Mark as Done"),
+                        child: priorityItems[index].isSelected == true? const Text("Mark as not Done") : const Text("Mark as Done"),
                         onPressed: () {
                           setState(() {
                             priorityItems[index].isSelected == true? priorityItems[index].isSelected = false: priorityItems[index].isSelected = true;
@@ -195,19 +203,19 @@ class _homeScreenState extends State<homeScreen> {
                 });
               },
               background: Container(
-                padding: EdgeInsets.symmetric(horizontal:20),
+                padding: const EdgeInsets.symmetric(horizontal:20),
                 decoration: BoxDecoration(
                   color: Colors.grey.withOpacity(0.1),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 
-                child: Center(child: Icon(FontAwesomeIcons.trash)),
+                child: const Center(child: Icon(FontAwesomeIcons.trash)),
               ),
               child: Container(
                 width: 120, 
-                margin: EdgeInsets.symmetric(horizontal: 10), 
+                margin: const EdgeInsets.symmetric(horizontal: 10), 
                 decoration: BoxDecoration(
-                  color:  priorityItems[index].isSelected ?Color(0xff5038BC) : Color(0xffa8bcdd) , 
+                  color:  priorityItems[index].isSelected ?const Color(0xff5038BC) : const Color(0xff907cc4) , 
                   borderRadius: BorderRadius.circular(25),
                 ),
                 child: Padding(
@@ -216,7 +224,7 @@ class _homeScreenState extends State<homeScreen> {
                     child: Text(
                       priorityItems[index].title,
                       textAlign: TextAlign.center,
-                      style: TextStyle(
+                      style: const TextStyle(
                         color: Colors.white,
                         fontSize: 21,
                       ),
@@ -246,13 +254,13 @@ class _homeScreenState extends State<homeScreen> {
                     content: Text(dailyItems[index].description), 
                     actions: [
                       TextButton(
-                        child: Text("Close"),
+                        child: const Text("Close"),
                         onPressed: () {
                           Navigator.of(context).pop(); 
                         },
                       ),
                       TextButton(
-                        child: dailyItems[index].isSelected == true ? Text("Mark as not Done") : Text("Mark as Done"),
+                        child: dailyItems[index].isSelected == true ? const Text("Mark as not Done") : const Text("Mark as Done"),
                         onPressed: () {
                           setState(() {
                             dailyItems[index].isSelected == true? dailyItems[index].isSelected = false : dailyItems[index].isSelected = true; 
@@ -286,14 +294,14 @@ class _homeScreenState extends State<homeScreen> {
                 });
               },
               background: Container(
-                padding: EdgeInsets.symmetric(horizontal:20),
+                padding: const EdgeInsets.symmetric(horizontal:20),
                 decoration: BoxDecoration(
                   color: Colors.grey.withOpacity(0.1),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 
                 child: 
-                Row(
+                const Row(
                   children: [
                     Spacer(),
                     Icon(FontAwesomeIcons.trash),
@@ -302,8 +310,8 @@ class _homeScreenState extends State<homeScreen> {
               ),
               
               child: Container(
-                margin: EdgeInsets.symmetric(vertical: 6),
-                padding: EdgeInsets.symmetric(horizontal:20,vertical: 15),
+                margin: const EdgeInsets.symmetric(vertical: 6),
+                padding: const EdgeInsets.symmetric(horizontal:20,vertical: 15),
                 decoration: BoxDecoration(
                   border: Border.all(color: Colors.grey),
                   borderRadius: BorderRadius.circular(10),
@@ -313,7 +321,7 @@ class _homeScreenState extends State<homeScreen> {
                   children: [
                     Text(dailyItems[index].title,
                       style:TextStyle(
-                        color: dailyItems[index].isSelected? Color(0xff5038BC) : Colors.black,
+                        color: dailyItems[index].isSelected? const Color(0xff5038BC) : Colors.black,
                         decoration: dailyItems[index].isSelected? TextDecoration.lineThrough : null,
                         
                       ),
@@ -325,11 +333,11 @@ class _homeScreenState extends State<homeScreen> {
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         border: Border.all(
-                          color: Color(0xff5038BC),
+                          color: const Color(0xff5038BC),
                           width: 2,
                         
                         ),
-                        color: dailyItems[index].isSelected? Color(0xff5038BC) : Colors.transparent
+                        color: dailyItems[index].isSelected? const Color(0xff5038BC) : Colors.transparent
                       ),
                     )
                   ],
@@ -366,7 +374,7 @@ class _homeScreenState extends State<homeScreen> {
             },))
           );
         }, 
-        child: Text(
+        child: const Text(
           "Add Task",
           style: TextStyle(
             color: Colors.white ,
@@ -374,7 +382,7 @@ class _homeScreenState extends State<homeScreen> {
         ),
         style: ElevatedButton.styleFrom(
       
-          backgroundColor:Color(0xff5038BC),
+          backgroundColor:const Color(0xff5038BC),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
       
@@ -393,7 +401,7 @@ class timeDisplay extends StatelessWidget {
     String formattedDate = DateFormat('EEEE, MMM d yyyy').format(now);
     return Text(
       formattedDate,
-      style: TextStyle(
+      style: const TextStyle(
         fontSize: 20,
       ),
       

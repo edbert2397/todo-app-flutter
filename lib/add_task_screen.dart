@@ -34,7 +34,7 @@ class _addTaskState extends State<addTask> {
         ),
         child: Column(
           children: [
-            SizedBox(height: 40),
+            SizedBox(height: 60),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal:30.0),
               child: Row(

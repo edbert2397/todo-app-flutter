@@ -43,7 +43,7 @@ class _editTaskState extends State<editTask> {
           ),
           child: Column(
             children: [
-              SizedBox(height: 40),
+              SizedBox(height: 60),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 30.0),
                 child: Row(
@@ -122,45 +122,45 @@ class _editTaskState extends State<editTask> {
                       descriptionInput(controller: _editDescriptionController),
                       SizedBox(height: 40,),
                       SizedBox(
-                            width: double.infinity,
-                            height: 60,
-                            child: ElevatedButton(
-                              
-                              onPressed: (){
-                                if(_editTitleController.text.isEmpty){
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text("Please fill title field"),
-                                      duration: Duration(seconds: 2),
-                                    ),
-                                  );
-                                }
-                                else{
-                                  widget.editedTask(Task(
-                                    title: _editTitleController.text,
-                                    description: _editDescriptionController.text == null ? "" : _editDescriptionController.text,
-                                    isPriority: widget.task.isPriority,
-                                    isSelected: false,
-                                  ));
-                                  Navigator.pop(context);
-                                }
-                              }, 
-                              child: Text(
-                                "Edit Task",
-                                style: TextStyle(
-                                  color: Colors.white ,
+                        width: double.infinity,
+                        height: 60,
+                        child: ElevatedButton(
+                          
+                          onPressed: (){
+                            if(_editTitleController.text.isEmpty){
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text("Please fill title field"),
+                                  duration: Duration(seconds: 2),
                                 ),
-                              ),
-                              style: ElevatedButton.styleFrom(
-                            
-                                backgroundColor:Color(0xff5038BC),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                            
-                                )
-                              )
+                              );
+                            }
+                            else{
+                              widget.editedTask(Task(
+                                title: _editTitleController.text,
+                                description: _editDescriptionController.text == null ? "" : _editDescriptionController.text,
+                                isPriority: widget.task.isPriority,
+                                isSelected: false,
+                              ));
+                              Navigator.pop(context);
+                            }
+                          }, 
+                          child: Text(
+                            "Edit Task",
+                            style: TextStyle(
+                              color: Colors.white ,
                             ),
                           ),
+                          style: ElevatedButton.styleFrom(
+                        
+                            backgroundColor:Color(0xff5038BC),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                        
+                            )
+                          )
+                        ),
+                      ),
       
       
                       
