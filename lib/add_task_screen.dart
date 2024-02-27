@@ -29,20 +29,20 @@ class _addTaskState extends State<addTask> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           color: Color(0xff5038BC),
         ),
         child: Column(
           children: [
-            SizedBox(height: 60),
+            const SizedBox(height: 60),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal:30.0),
               child: Row(
                 
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  backButton(),
-                  Expanded(
+                  const backButton(),
+                  const Expanded(
                     child: Center(
                       child: Text(
                         "Add Task",
@@ -63,12 +63,12 @@ class _addTaskState extends State<addTask> {
                 ],
               ),
             ),
-            SizedBox(height: 50),
+            const SizedBox(height: 50),
             Expanded(
               child: Container(
                 width: double.infinity,
-                padding: EdgeInsets.only(left:30,top: 50,bottom: 50,right:30),
-                decoration: BoxDecoration(
+                padding: const EdgeInsets.only(left:30,top: 50,bottom: 50,right:30),
+                decoration: const BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(40),
@@ -79,15 +79,15 @@ class _addTaskState extends State<addTask> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     titleInput(controller: _titleController),
-                    SizedBox(height: 40,),
-                    Text("Category",
+                    const SizedBox(height: 40,),
+                    const Text("Category",
                       style: TextStyle(
                         color: Color(0xff5038BC),
                         decoration: TextDecoration.none,
                         fontSize: 20,
                       ),
                     ),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -101,7 +101,7 @@ class _addTaskState extends State<addTask> {
                             });
                           } 
                         ),
-                        SizedBox(width: 20,),
+                        const SizedBox(width: 20,),
                         categoryButton(
                           index: 1, 
                           text: "Daily Task", 
@@ -114,9 +114,9 @@ class _addTaskState extends State<addTask> {
                         )
                       ],
                     ),
-                    SizedBox(height: 50),
+                    const SizedBox(height: 50),
                     descriptionInput(controller: _descriptionController),
-                    SizedBox(height: 40,),
+                    const SizedBox(height: 40,),
                     SizedBox(
                           width: double.infinity,
                           height: 60,
@@ -124,7 +124,7 @@ class _addTaskState extends State<addTask> {
                             
                             onPressed: (){
                               if(_titleController.text.isEmpty ){
-                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Please fill title Field")));
+                                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Please fill title Field")));
                               }
                               else{
                                 widget.addedTask(Task(
@@ -136,7 +136,7 @@ class _addTaskState extends State<addTask> {
                                 Navigator.pop(context);
                               }
                             }, 
-                            child: Text(
+                            child: const Text(
                               "Create Task",
                               style: TextStyle(
                                 color: Colors.white ,
@@ -144,7 +144,7 @@ class _addTaskState extends State<addTask> {
                             ),
                             style: ElevatedButton.styleFrom(
                           
-                              backgroundColor:Color(0xff5038BC),
+                              backgroundColor:const Color(0xff5038BC),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
                           

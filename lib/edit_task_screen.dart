@@ -38,19 +38,19 @@ class _editTaskState extends State<editTask> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: Container(
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             color: Color(0xff5038BC),
           ),
           child: Column(
             children: [
-              SizedBox(height: 60),
+              const SizedBox(height: 60),
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 30.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    backButton(),
-                    Text(
+                    const backButton(),
+                    const Text(
                       "Edit Task",
                       style: TextStyle(
                         color: Colors.white,
@@ -66,12 +66,12 @@ class _editTaskState extends State<editTask> {
                   ],
                 ),
               ),
-              SizedBox(height: 50),
+              const SizedBox(height: 50),
               Expanded(
                 child: Container(
                   width: double.infinity,
-                  padding: EdgeInsets.only(left:30,top: 50,bottom: 50,right:30),
-                  decoration: BoxDecoration(
+                  padding: const EdgeInsets.only(left:30,top: 50,bottom: 50,right:30),
+                  decoration: const BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(40),
@@ -82,32 +82,32 @@ class _editTaskState extends State<editTask> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       titleInput(controller: _editTitleController),
-                      SizedBox(height: 40,),
-                      Text("Category",
+                      const SizedBox(height: 40,),
+                      const Text("Category",
                         style: TextStyle(
                           color: Color(0xff5038BC),
                           decoration: TextDecoration.none,
                           fontSize: 20,
                         ),
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
 
                       Container(
                         width: double.infinity,
                         height: 40,
                         decoration: BoxDecoration(
-                          color: Color(0xff5038BC),
+                          color: const Color(0xff5038BC),
                           borderRadius: BorderRadius.circular(10)
                           
                         ),
                         child: Center(
-                          child: widget.task.isPriority? Text(
+                          child: widget.task.isPriority? const Text(
                               "Priority Task",
                               style: TextStyle(
                                 color:Colors.white,
                                 fontSize: 14,
                               ),
-                            ):Text(
+                            ):const Text(
                               "Daily Task",
                               style: TextStyle(
                                 color:Colors.white,
@@ -118,9 +118,9 @@ class _editTaskState extends State<editTask> {
 
                       ),
 
-                      SizedBox(height: 50),
+                      const SizedBox(height: 50),
                       descriptionInput(controller: _editDescriptionController),
-                      SizedBox(height: 40,),
+                      const SizedBox(height: 40,),
                       SizedBox(
                         width: double.infinity,
                         height: 60,
@@ -129,7 +129,7 @@ class _editTaskState extends State<editTask> {
                           onPressed: (){
                             if(_editTitleController.text.isEmpty){
                               ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
+                                const SnackBar(
                                   content: Text("Please fill title field"),
                                   duration: Duration(seconds: 2),
                                 ),
@@ -145,7 +145,7 @@ class _editTaskState extends State<editTask> {
                               Navigator.pop(context);
                             }
                           }, 
-                          child: Text(
+                          child: const Text(
                             "Edit Task",
                             style: TextStyle(
                               color: Colors.white ,
@@ -153,7 +153,7 @@ class _editTaskState extends State<editTask> {
                           ),
                           style: ElevatedButton.styleFrom(
                         
-                            backgroundColor:Color(0xff5038BC),
+                            backgroundColor:const Color(0xff5038BC),
                             shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
                         

@@ -17,53 +17,27 @@ class bottomNavbar extends StatelessWidget {
             color: Colors.grey.withOpacity(0.5),
             spreadRadius: 5,
             blurRadius: 7,
-            offset: Offset(0, 3), // changes position of shadow
+            offset: const Offset(0, 3), 
           ),
-    ],
-        // borderRadius: BorderRadius.only(topLeft: Radius.circular(40),topRight: Radius.circular(40)),
+        ],
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.home,
               color: Color(0xff5038BC),
               size: 40,
             ),
             onPressed: () {
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(builder: (context) => const homeScreen()),
-              // );
-              // Navigator.pushReplacementNamed(context, homeScreen.routeName);
-              // print(ModalRoute.of(context)?.settings.name);
-              // print(homeScreen.routeName);
               if (ModalRoute.of(context)?.settings.name != homeScreen.routeName) {
                 Navigator.pop(context);
               }
             },
           ),
-          // GestureDetector(
-          //   onTap: (){
-
-          //   },
-          //   child: Container(
-          //     height: 40,
-          //     width: 40,
-          //     decoration: BoxDecoration(
-          //       shape: BoxShape.circle,
-          //       color: Color(0xff5038BC),
-                
-          //     ),
-          //     child: Icon(
-          //       Icons.add,
-          //       color: Colors.white,
-          //     ),
-          //   ),
-          // ),
           IconButton(
-            icon: Icon(
+            icon: const Icon(
               Icons.person,
               color: Color(0xff5038BC),
               size:40,

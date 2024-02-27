@@ -226,7 +226,7 @@ class _homeScreenState extends State<homeScreen> {
                       textAlign: TextAlign.center,
                       style: const TextStyle(
                         color: Colors.white,
-                        fontSize: 21,
+                        fontSize: 18,
                       ),
                     ),
                   ),
