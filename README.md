@@ -1,16 +1,28 @@
-# todoapp
+# Application Features
+## Home screen 
+- displays the welcoming text, todo task that must be completed, and add task button
 
-A new Flutter project.
+- the todo task is separated into two types, **priority** and **Daily**.
 
-## Getting Started
+### priority task
+- The priority task can be scrolled left and right
+- If the task is not done, the background color is light purple, however if it's done, the background color will be a darker purple.
+- If it is pressed, it will display the title and description of the task. There is *"Mark as Done"* button on there that if it is pressed, the task will be considered done.
+- If it is long pressed, it will navigated to `edik task screen` where you can edit the title or the description of the task.
+- If it is swiped up, the task will be deleted. 
 
-This project is a starting point for a Flutter application.
+### daily task
+- The daily task can be scrolled up and down
+- If the task is not done, the indicator circle's color of the task is white, however if it's done, the indicator circle's color will be purple and there will be a linethrough on the title of the task.
+- If it is pressed, it will display the title and description of the task. There is "Mark as Done" button on there that if it is pressed, the task will be considered done.
+- If it is long pressed, it will navigated to `edik task screen` where you can edit the title or the description of the task.
+- If it is swiped left, the task will be deleted. 
 
-A few resources to get you started if this is your first Flutter project:
+## Add task screen
+You can add the title and description of the task. Also, you can choose the category of the task by just clicking the category button.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Edit task screen
+You can edit the title and description of the task.
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Profile page sreen
+By clicking the profile icon on the bottom navigation bar, yo will be directed to "AboutMe" page where you can see my profile information section.
