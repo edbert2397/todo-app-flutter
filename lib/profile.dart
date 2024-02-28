@@ -6,49 +6,50 @@ class Profile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String aboutMe = "Hi there I'm Edbert, a second year student in University of Indonesia. I like to learn new things and eat sushi :D.";
     return Scaffold(
       bottomNavigationBar: bottomNavbar(),
       body: Container(
         color: Color(0xff5038BC), 
       
-        child: Column(
-          children: [
-            SizedBox(height: 50,),
-            CircleAvatar(
-              radius: 75,
-              backgroundImage: NetworkImage("https://fastly.picsum.photos/id/237/200/300.jpg?hmac=TmmQSbShHz9CdQm0NkEjx1Dyh_Y984R9LpNrpvH2D_U"),
-            ),
-            SizedBox(height:25),
-            Text(
-              "Edbert Halim",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 30,
-                color: Colors.white,
-                decoration: TextDecoration.none
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(height: 50,),
+              CircleAvatar(
+                radius: 75,
+                backgroundImage: NetworkImage("https://fastly.picsum.photos/id/237/200/300.jpg?hmac=TmmQSbShHz9CdQm0NkEjx1Dyh_Y984R9LpNrpvH2D_U"),
               ),
-            ),
-            SizedBox(height: 15,),
-            Text(
-              "@Edbert2397",
-              style: TextStyle(
-                  fontSize: 15,
+              SizedBox(height:25),
+              Text(
+                "Edbert Halim",
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 30,
                   color: Colors.white,
                   decoration: TextDecoration.none
                 ),
-            ),
-            SizedBox(height: 15,),
-            Text(
-              "Depok, Jawa Barat",
-              style: TextStyle(
-                  fontSize: 15,
-                  color: Colors.white,
-                  decoration: TextDecoration.none
-                ),
-            ),
-            SizedBox(height: 40,),
-            Expanded(
-              child: Container(
+              ),
+              SizedBox(height: 15,),
+              Text(
+                "@Edbert2397",
+                style: TextStyle(
+                    fontSize: 15,
+                    color: Colors.white,
+                    decoration: TextDecoration.none
+                  ),
+              ),
+              SizedBox(height: 15,),
+              Text(
+                "Depok, Jawa Barat",
+                style: TextStyle(
+                    fontSize: 15,
+                    color: Colors.white,
+                    decoration: TextDecoration.none
+                  ),
+              ),
+              SizedBox(height: 40,),
+              Container(
                 width: double.infinity,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.only(
@@ -71,7 +72,25 @@ class Profile extends StatelessWidget {
                     ),
                     SizedBox(height: 15,),
                     Text(
-                      "Hi there, I'm Edbert and I like to eat sushi",
+                      aboutMe,
+                      style: TextStyle(
+                        fontSize: 15,
+                        color:Colors.black,
+                        decoration: TextDecoration.none
+                      ),
+                    ),
+                    SizedBox(height: 30),
+                    Text(
+                      "Hobby",
+                      style: TextStyle(
+                        fontSize: 25,
+                        color: Color(0xff1a2c50),
+                        decoration: TextDecoration.none
+                      ),
+                    ),
+                    SizedBox(height: 15,),
+                    Text(
+                      "I like to play badminton and watching youtube.",
                       style: TextStyle(
                         fontSize: 15,
                         color:Colors.black,
@@ -91,12 +110,12 @@ class Profile extends StatelessWidget {
                     Row(
                       children: [
                         Icon(
-                          FontAwesomeIcons.twitter,
+                          FontAwesomeIcons.line,
                           color: Color(0xff5038BC)
-      
+              
                         ),
                         Text(
-                          " @Edbert.H",
+                          " @edberthalim07",
                           style: TextStyle(
                               fontSize: 15,
                               color:Colors.black,
@@ -123,11 +142,11 @@ class Profile extends StatelessWidget {
                       ]
                     )
                   ],
-                    
                 ),
               ),
-            ),
-          ],
+            
+            ],
+          ),
         ),
       ),
     );
