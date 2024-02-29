@@ -180,7 +180,18 @@ class _homeScreenState extends State<homeScreen> {
                           context: context,
                           builder: (BuildContext context) {
                             return AlertDialog(
-                              title: Text(priorityItems[index].title), 
+                              title: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(priorityItems[index].title),
+                                  Text(
+                                    priorityItems[index].progress.toString() + "% done",
+                                    style: TextStyle( 
+                                      fontSize: 20,
+                                    ),
+                                  ),
+                                ],
+                              ), 
                               content: Text(priorityItems[index].description), 
                               actions:[
                                 TextButton(
@@ -193,7 +204,10 @@ class _homeScreenState extends State<homeScreen> {
                                   child: priorityItems[index].isSelected == true? const Text("Mark as not Done") : const Text("Mark as Done"),
                                   onPressed: () {
                                     setState(() {
-                                      priorityItems[index].isSelected == true? priorityItems[index].isSelected = false: priorityItems[index].isSelected = true;
+                                      bool now = priorityItems[index].isSelected;
+                                      now == true? priorityItems[index].isSelected = false: priorityItems[index].isSelected = true;
+                                      now == true? priorityItems[index].progress = 0 : priorityItems[index].progress = 100;
+
                                       savePriorityItems(priorityItems); 
                                       Navigator.of(context).pop(); 
                                     });
@@ -242,19 +256,44 @@ class _homeScreenState extends State<homeScreen> {
                           ),
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Center(
-                              child: Text(
-                                priorityItems[index].title,
-                                textAlign: TextAlign.center,
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 18,
-                                ),
+                              child: Column(
+                                children: [
+                                  Expanded(
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: [
+                                        Text(
+                                          priorityItems[index].title,
+                                          textAlign: TextAlign.center,
+                                          style: const TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 18,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left:10.0,right: 10.0,bottom:10.0),
+                                    child: Container(
+                                      width: double.infinity,
+                                      height: 6,
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(10),
+                                        child: LinearProgressIndicator(
+                                          backgroundColor: Colors.white,
+                                          valueColor: AlwaysStoppedAnimation<Color>(Colors.purple.shade700),
+                                          value: priorityItems[index].progress/100,
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                  
+                                ],
                               ),
                             ),
                           ),
                         ),
-                      ),
                     );
                   },
                 ) :
@@ -310,6 +349,7 @@ class _homeScreenState extends State<homeScreen> {
                                 onPressed: () {
                                   setState(() {
                                     dailyItems[index].isSelected == true? dailyItems[index].isSelected = false : dailyItems[index].isSelected = true; 
+                                    saveDailyItems(dailyItems);
                                     Navigator.of(context).pop(); 
                                   });
                                 },

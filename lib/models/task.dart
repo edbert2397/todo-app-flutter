@@ -9,7 +9,8 @@ class Task{
   String description;
   bool isPriority;
   bool isSelected;
-  Task({required this.title,required this.description,required this.isPriority,required this.isSelected});
+  double progress;
+  Task({required this.title,required this.description,required this.isPriority,required this.isSelected,required this.progress});
 
   // JSON serialization
   factory Task.fromJson(Map<String, dynamic> json) => _$TaskFromJson(json);

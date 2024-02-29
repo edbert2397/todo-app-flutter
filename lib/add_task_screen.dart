@@ -28,44 +28,44 @@ class _addTaskState extends State<addTask> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      body: Container(
-        decoration: const BoxDecoration(
-          color: Color(0xff5038BC),
-        ),
-        child: Column(
-          children: [
-            const SizedBox(height: 60),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal:30.0),
-              child: Row(
-                
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const backButton(),
-                  const Expanded(
-                    child: Center(
-                      child: Text(
-                        "Add Task",
-                        style: TextStyle(
-                          color: Colors.white,
-                          decoration: TextDecoration.none,
-                          fontSize: 30
+      body: SingleChildScrollView(
+        child: Container(
+          decoration: const BoxDecoration(
+            color: Color(0xff5038BC),
+          ),
+          child: Column(
+            children: [
+              const SizedBox(height: 60),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal:30.0),
+                child: Row(
+                  
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const backButton(),
+                    const Expanded(
+                      child: Center(
+                        child: Text(
+                          "Add Task",
+                          style: TextStyle(
+                            color: Colors.white,
+                            decoration: TextDecoration.none,
+                            fontSize: 30
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  // supaya add text add task ada ditengah 
-                  Container(
-                    height: 30,
-                    width: 30,
-                  )
-              
-                ],
+                    // supaya add text add task ada ditengah 
+                    Container(
+                      height: 30,
+                      width: 30,
+                    )
+                
+                  ],
+                ),
               ),
-            ),
-            const SizedBox(height: 50),
-            Expanded(
-              child: Container(
+              const SizedBox(height: 50),
+              Container(
                 width: double.infinity,
                 padding: const EdgeInsets.only(left:30,top: 50,bottom: 50,right:30),
                 decoration: const BoxDecoration(
@@ -118,50 +118,51 @@ class _addTaskState extends State<addTask> {
                     descriptionInput(controller: _descriptionController),
                     const SizedBox(height: 40,),
                     SizedBox(
-                          width: double.infinity,
-                          height: 60,
-                          child: ElevatedButton(
-                            
-                            onPressed: (){
-                              if(_titleController.text.isEmpty ){
-                                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Please fill title Field")));
-                              }
-                              else{
-                                widget.addedTask(Task(
-                                  title: _titleController.text,
-                                  description: _descriptionController.text == null ? "" : _descriptionController.text,
-                                  isPriority: _selectedIndex == 0 ? true : false,
-                                  isSelected: false,
-                                ));
-                                Navigator.pop(context);
-                              }
-                            }, 
-                            child: const Text(
-                              "Create Task",
-                              style: TextStyle(
-                                color: Colors.white ,
-                              ),
-                            ),
-                            style: ElevatedButton.styleFrom(
-                          
-                              backgroundColor:const Color(0xff5038BC),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10),
-                          
-                              )
-                            )
+                      width: double.infinity,
+                      height: 60,
+                      child: ElevatedButton(
+                        
+                        onPressed: (){
+                          if(_titleController.text.isEmpty ){
+                            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Please fill title Field")));
+                          }
+                          else{
+                            widget.addedTask(Task(
+                              title: _titleController.text,
+                              description: _descriptionController.text == null ? "" : _descriptionController.text,
+                              isPriority: _selectedIndex == 0 ? true : false,
+                              isSelected: false,
+                              progress: 0,
+                            ));
+                            Navigator.pop(context);
+                          }
+                        }, 
+                        child: const Text(
+                          "Create Task",
+                          style: TextStyle(
+                            color: Colors.white ,
                           ),
                         ),
-
-
-                    
+                        style: ElevatedButton.styleFrom(
+                      
+                          backgroundColor:const Color(0xff5038BC),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                      
+                          )
+                        )
+                      ),
+                    ),
+  
+        
+                      
                   ],
                 ),
-      
-              ),
-            ),
-          ],
         
+              ),
+            ],
+          
+          ),
         ),
       ),
     );
