@@ -18,7 +18,8 @@ class Profile extends StatelessWidget {
               SizedBox(height: 50,),
               CircleAvatar(
                 radius: 75,
-                backgroundImage: NetworkImage("https://fastly.picsum.photos/id/237/200/300.jpg?hmac=TmmQSbShHz9CdQm0NkEjx1Dyh_Y984R9LpNrpvH2D_U"),
+                // backgroundImage: NetworkImage("https://fastly.picsum.photos/id/237/200/300.jpg?hmac=TmmQSbShHz9CdQm0NkEjx1Dyh_Y984R9LpNrpvH2D_U"),
+                backgroundImage: AssetImage("images/fotodiri2.png"),
               ),
               SizedBox(height:25),
               Text(

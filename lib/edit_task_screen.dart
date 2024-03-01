@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todoapp/bottom_navbar.dart';
 import 'package:todoapp/components/back_button.dart';
 import 'package:todoapp/components/description_input.dart';
 import 'package:todoapp/components/title_input.dart';
@@ -183,6 +184,7 @@ class _editTaskState extends State<editTask> {
 
   Column progressSection(){
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(height: 40,),
         const Text("Progress",
