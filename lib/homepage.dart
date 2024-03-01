@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:todoapp/bottom_navbar.dart';
-import 'package:todoapp/home_screen.dart';
+import 'package:todoapp/screen/home_screen.dart';
 
 class homepage extends StatelessWidget {
   const homepage({super.key});

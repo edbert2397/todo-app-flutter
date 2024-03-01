@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:todoapp/home_screen.dart';
-import 'package:todoapp/profile.dart';
+import 'package:todoapp/screen/home_screen.dart';
+import 'package:todoapp/screen/profile_screen.dart';
 
 class bottomNavbar extends StatelessWidget {
   const bottomNavbar({super.key});

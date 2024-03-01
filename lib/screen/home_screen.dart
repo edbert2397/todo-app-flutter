@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:todoapp/add_task_screen.dart';
+import 'package:todoapp/screen/add_task_screen.dart';
 import 'package:todoapp/bottom_navbar.dart';
-import 'package:todoapp/edit_task_screen.dart';
 import 'package:todoapp/models/task.dart';
 import 'dart:convert';
+
+import 'package:todoapp/screen/edit_task_screen.dart';
 
 
 
