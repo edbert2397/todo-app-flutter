@@ -201,11 +201,11 @@ class _homeScreenState extends State<homeScreen> {
                                   },
                                 ),
                                 TextButton(
-                                  child: priorityItems[index].isSelected == true? const Text("Mark as not Done") : const Text("Mark as Done"),
+                                  child: priorityItems[index].isDone == true? const Text("Mark as not Done") : const Text("Mark as Done"),
                                   onPressed: () {
                                     setState(() {
-                                      bool now = priorityItems[index].isSelected;
-                                      now == true? priorityItems[index].isSelected = false: priorityItems[index].isSelected = true;
+                                      bool now = priorityItems[index].isDone;
+                                      now == true? priorityItems[index].isDone = false: priorityItems[index].isDone = true;
                                       now == true? priorityItems[index].progress = 0 : priorityItems[index].progress = 100;
 
                                       savePriorityItems(priorityItems); 
@@ -251,7 +251,7 @@ class _homeScreenState extends State<homeScreen> {
                           width: 120, 
                           margin: const EdgeInsets.symmetric(horizontal: 10), 
                           decoration: BoxDecoration(
-                            color:  priorityItems[index].isSelected ?const Color(0xff5038BC) : const Color(0xff907cc4) , 
+                            color:  priorityItems[index].isDone ?const Color(0xff5038BC) : const Color(0xff907cc4) , 
                             borderRadius: BorderRadius.circular(25),
                           ),
                           child: Padding(
@@ -345,10 +345,10 @@ class _homeScreenState extends State<homeScreen> {
                                 },
                               ),
                               TextButton(
-                                child: dailyItems[index].isSelected == true ? const Text("Mark as not Done") : const Text("Mark as Done"),
+                                child: dailyItems[index].isDone == true ? const Text("Mark as not Done") : const Text("Mark as Done"),
                                 onPressed: () {
                                   setState(() {
-                                    dailyItems[index].isSelected == true? dailyItems[index].isSelected = false : dailyItems[index].isSelected = true; 
+                                    dailyItems[index].isDone == true? dailyItems[index].isDone = false : dailyItems[index].isDone = true; 
                                     saveDailyItems(dailyItems);
                                     Navigator.of(context).pop(); 
                                   });
@@ -407,8 +407,8 @@ class _homeScreenState extends State<homeScreen> {
                           children: [
                             Text(dailyItems[index].title,
                               style:TextStyle(
-                                color: dailyItems[index].isSelected? const Color(0xff5038BC) : Colors.black,
-                                decoration: dailyItems[index].isSelected? TextDecoration.lineThrough : null,
+                                color: dailyItems[index].isDone? const Color(0xff5038BC) : Colors.black,
+                                decoration: dailyItems[index].isDone? TextDecoration.lineThrough : null,
                                 
                               ),
                             ),
@@ -423,7 +423,7 @@ class _homeScreenState extends State<homeScreen> {
                                   width: 2,
                                 
                                 ),
-                                color: dailyItems[index].isSelected? const Color(0xff5038BC) : Colors.transparent
+                                color: dailyItems[index].isDone? const Color(0xff5038BC) : Colors.transparent
                               ),
                             )
                           ],

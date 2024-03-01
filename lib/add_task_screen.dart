@@ -18,7 +18,7 @@ class _addTaskState extends State<addTask> {
   int _selectedIndex = 0;
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
-  List <bool> isSelected = [true,false];
+
   @override
   void dispose(){
     _titleController.dispose();
@@ -132,7 +132,7 @@ class _addTaskState extends State<addTask> {
                               title: _titleController.text,
                               description: _descriptionController.text == null ? "" : _descriptionController.text,
                               isPriority: _selectedIndex == 0 ? true : false,
-                              isSelected: false,
+                              isDone: false,
                               progress: 0,
                             ));
                             Navigator.pop(context);
