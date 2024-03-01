@@ -16,10 +16,11 @@ class Profile extends StatelessWidget {
           child: Column(
             children: [
               SizedBox(height: 50,),
-              CircleAvatar(
+              const CircleAvatar(
                 radius: 75,
-                // backgroundImage: NetworkImage("https://fastly.picsum.photos/id/237/200/300.jpg?hmac=TmmQSbShHz9CdQm0NkEjx1Dyh_Y984R9LpNrpvH2D_U"),
-                backgroundImage: AssetImage("images/fotodiri2.png"),
+                
+                // backgroundImage: NetworkImage("https://cdn.discordapp.com/attachments/782262112894058496/1212956780146196551/Screenshot_2024-03-01_082011.png?ex=65f3b908&is=65e14408&hm=24e666bc7b48b8ed6ff955d31f43c7c7ec976f4e099de13da5badf495cace18f&"),
+                backgroundImage: AssetImage("assets/images/fotodiri2.png"),
               ),
               SizedBox(height:25),
               Text(
