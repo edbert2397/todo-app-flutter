@@ -185,7 +185,7 @@ class _homeScreenState extends State<homeScreen> {
                                 children: [
                                   Text(priorityItems[index].title),
                                   Text(
-                                    priorityItems[index].progress.toString() + "% done",
+                                    priorityItems[index].progress.round().toString() + "% done",
                                     style: TextStyle( 
                                       fontSize: 20,
                                     ),

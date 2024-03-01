@@ -20,6 +20,7 @@ class _editTaskState extends State<editTask> {
   late TextEditingController _editTitleController;
   late TextEditingController _editDescriptionController;
   late double _currentProgress;
+  late bool _newIsSelected;
   
   @override
   void initState() {
@@ -140,12 +141,12 @@ class _editTaskState extends State<editTask> {
                                 );
                               }
                               else{
-                                print(_currentProgress);
+                                _newIsSelected = _currentProgress == 100 ? true : false;
                                 widget.editedTask(Task(
                                   title: _editTitleController.text,
                                   description: _editDescriptionController.text == null ? "" : _editDescriptionController.text,
                                   isPriority: widget.task.isPriority,
-                                  isSelected: false,
+                                  isSelected: _newIsSelected,
                                   progress: _currentProgress,
                                 ));
                                 Navigator.pop(context);
