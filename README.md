@@ -28,6 +28,13 @@ You can edit the title and description of the task.
 ## Profile page sreen
 By clicking the profile icon on the bottom navigation bar, yo will be directed to "AboutMe" page where you can see my profile information section.
 
+# Packages used
+- font_awesome_flutter: '>= 4.7.0'
+- intl: ^0.19.0
+- cupertino_icons: ^1.0.2
+- shared_preferences: ^2.2.2
+- json_annotation: ^4.8.1
+
 # Essay
 Proses Pengerjaan tugas Open Recruitement Mobile Development menurut saya sangatlah seru dan menantang. Setelah melihat figma yang diberikan, saya pun mulai untuk mengerjakan tugas yang diberikan dengan menjadikan figma tersebut sebagai referensi.  Mengerjakan proyek secara mandiri ternyata tidak mudah karena kurangnya masukkan dari orang lain. Namun, saya banyak mendapatkan pengalaman berharga dalam hal teknis.
 
