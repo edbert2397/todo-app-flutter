@@ -8,6 +8,8 @@ import 'package:todoapp/bottom_navbar.dart';
 import 'package:todoapp/models/task.dart';
 import 'dart:convert';
 
+import 'package:todoapp/storage_service.dart';
+
 
 
 
@@ -24,6 +26,8 @@ class _homeScreenState extends State<homeScreen> {
   late List<Task> items;
   late List<Task> priorityItems;
   late List<Task> dailyItems;
+  final StorageService _storageService = StorageService(); 
+
 
   @override
   void initState() {
@@ -31,42 +35,42 @@ class _homeScreenState extends State<homeScreen> {
     dailyItems = [];
 
     super.initState();
-    loadPriorityItems().then((loadedItems) {
+    _storageService.loadPriorityItems().then((loadedItems) {
       setState(() {
         priorityItems = loadedItems;
       });
     });
-    loadDailyItems().then((loadedItems) {
+    _storageService.loadDailyItems().then((loadedItems) {
       setState(() {
         dailyItems = loadedItems;
       });
     });
   }
 
-  Future<void> savePriorityItems(List<Task> items) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    List<String> stringList = items.map((item) => jsonEncode(item.toJson())).toList();
-    await prefs.setStringList('priorityItems', stringList);
-  }
+  // Future<void> savePriorityItems(List<Task> items) async {
+  //   final SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   List<String> stringList = items.map((item) => jsonEncode(item.toJson())).toList();
+  //   await prefs.setStringList('priorityItems', stringList);
+  // }
 
-  Future<List<Task>> loadPriorityItems() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    List<String> stringList = prefs.getStringList('priorityItems') ?? [];
-    List<Task> items = stringList.map((itemStr) => Task.fromJson(jsonDecode(itemStr))).toList();
-    return items;
-  }
-  Future<void> saveDailyItems(List<Task> items) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    List<String> stringList = items.map((item) => jsonEncode(item.toJson())).toList();
-    await prefs.setStringList('dailyItems', stringList);
-  }
+  // Future<List<Task>> loadPriorityItems() async {
+  //   final SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   List<String> stringList = prefs.getStringList('priorityItems') ?? [];
+  //   List<Task> items = stringList.map((itemStr) => Task.fromJson(jsonDecode(itemStr))).toList();
+  //   return items;
+  // }
+  // Future<void> saveDailyItems(List<Task> items) async {
+  //   final SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   List<String> stringList = items.map((item) => jsonEncode(item.toJson())).toList();
+  //   await prefs.setStringList('dailyItems', stringList);
+  // }
 
-  Future<List<Task>> loadDailyItems() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    List<String> stringList = prefs.getStringList('dailyItems') ?? [];
-    List<Task> items = stringList.map((itemStr) => Task.fromJson(jsonDecode(itemStr))).toList();
-    return items;
-  }
+  // Future<List<Task>> loadDailyItems() async {
+  //   final SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   List<String> stringList = prefs.getStringList('dailyItems') ?? [];
+  //   List<Task> items = stringList.map((itemStr) => Task.fromJson(jsonDecode(itemStr))).toList();
+  //   return items;
+  // }
   
   @override
   Widget build(BuildContext context) {
@@ -209,7 +213,7 @@ class _homeScreenState extends State<homeScreen> {
                                       now == true? priorityItems[index].isDone = false: priorityItems[index].isDone = true;
                                       now == true? priorityItems[index].progress = 0 : priorityItems[index].progress = 100;
 
-                                      savePriorityItems(priorityItems); 
+                                      _storageService.savePriorityItems(priorityItems); 
                                       Navigator.of(context).pop(); 
                                     });
                                   },
@@ -225,7 +229,7 @@ class _homeScreenState extends State<homeScreen> {
                           MaterialPageRoute(builder: (context) => editTask(idx: index,task: priorityItems[index],editedTask: (newEdittedtask){
                             setState(() {
                               priorityItems[index] = newEdittedtask;
-                              savePriorityItems(priorityItems);
+                              _storageService.savePriorityItems(priorityItems);
                             });
                           })),
                         );
@@ -236,7 +240,7 @@ class _homeScreenState extends State<homeScreen> {
                         onDismissed: (direction){
                           setState(() {
                             priorityItems.removeAt(index);
-                            savePriorityItems(priorityItems);
+                            _storageService.savePriorityItems(priorityItems);
                           });
                         },
                         background: Container(
@@ -350,7 +354,7 @@ class _homeScreenState extends State<homeScreen> {
                                 onPressed: () {
                                   setState(() {
                                     dailyItems[index].isDone == true? dailyItems[index].isDone = false : dailyItems[index].isDone = true; 
-                                    saveDailyItems(dailyItems);
+                                    _storageService.saveDailyItems(dailyItems);
                                     Navigator.of(context).pop(); 
                                   });
                                 },
@@ -366,7 +370,7 @@ class _homeScreenState extends State<homeScreen> {
                         MaterialPageRoute(builder: (context) => editTask(idx: index,task: dailyItems[index],editedTask: (newEdittedtask){
                           setState(() {
                             dailyItems[index] = newEdittedtask;
-                            saveDailyItems(dailyItems);
+                            _storageService.saveDailyItems(dailyItems);
                           });
                         })),
                       );
@@ -377,7 +381,7 @@ class _homeScreenState extends State<homeScreen> {
                       onDismissed: (direction){
                         setState(() {
                           dailyItems.removeAt(index);
-                          saveDailyItems(dailyItems);
+                          _storageService.saveDailyItems(dailyItems);
                         });
                       },
                       background: Container(
@@ -461,11 +465,11 @@ class _homeScreenState extends State<homeScreen> {
               setState(() {
                 if(newTask.isPriority == true){
                   priorityItems.add(newTask);
-                  savePriorityItems(priorityItems); 
+                  _storageService.savePriorityItems(priorityItems); 
                 }
                 else{
                   dailyItems.add(newTask);
-                  saveDailyItems(dailyItems); 
+                  _storageService.saveDailyItems(dailyItems); 
       
                 }
               });
