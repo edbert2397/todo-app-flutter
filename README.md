@@ -1,4 +1,7 @@
 # Application Features
+
+I implement SharedPreferences to prevent data loss when the application is closed and reopened.
+
 ## Home screen 
 - displays the welcoming text, todo task that must be completed, and add task button
 
