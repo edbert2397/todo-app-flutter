@@ -46,31 +46,6 @@ class _homeScreenState extends State<homeScreen> {
       });
     });
   }
-
-  // Future<void> savePriorityItems(List<Task> items) async {
-  //   final SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   List<String> stringList = items.map((item) => jsonEncode(item.toJson())).toList();
-  //   await prefs.setStringList('priorityItems', stringList);
-  // }
-
-  // Future<List<Task>> loadPriorityItems() async {
-  //   final SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   List<String> stringList = prefs.getStringList('priorityItems') ?? [];
-  //   List<Task> items = stringList.map((itemStr) => Task.fromJson(jsonDecode(itemStr))).toList();
-  //   return items;
-  // }
-  // Future<void> saveDailyItems(List<Task> items) async {
-  //   final SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   List<String> stringList = items.map((item) => jsonEncode(item.toJson())).toList();
-  //   await prefs.setStringList('dailyItems', stringList);
-  // }
-
-  // Future<List<Task>> loadDailyItems() async {
-  //   final SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   List<String> stringList = prefs.getStringList('dailyItems') ?? [];
-  //   List<Task> items = stringList.map((itemStr) => Task.fromJson(jsonDecode(itemStr))).toList();
-  //   return items;
-  // }
   
   @override
   Widget build(BuildContext context) {
@@ -78,11 +53,6 @@ class _homeScreenState extends State<homeScreen> {
       body: SafeArea(
         child: Container(
           decoration: BoxDecoration(
-            // gradient: LinearGradient(
-            //   begin: Alignment.topCenter,
-            //   end: Alignment.bottomCenter,
-            //   colors: [Colors.grey.shade200,Colors.white], 
-            // ),
             color: Colors.purple.shade100,
           ),
             child: Column(
@@ -98,10 +68,10 @@ class _homeScreenState extends State<homeScreen> {
                 const SizedBox(height: 15,),
                 Expanded(
                   child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 30,vertical: 20),
+                    padding: const EdgeInsets.symmetric(horizontal: 30,vertical: 20),
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(topLeft: Radius.circular(40),topRight: Radius.circular(40)),
+                      borderRadius: const BorderRadius.only(topLeft: const Radius.circular(40),topRight: Radius.circular(40)),
                       color: Colors.grey.shade100,
                     ),
                     child: Column(
@@ -138,9 +108,9 @@ class _homeScreenState extends State<homeScreen> {
     );
   }
   Padding buildWelcomeText(){
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal:30.0),
-      child: const Column(
+    return const Padding(
+      padding: EdgeInsets.symmetric(horizontal:30.0),
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text("Welcome Edbert.H",
@@ -171,10 +141,10 @@ class _homeScreenState extends State<homeScreen> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-          SizedBox(height: 6,),
+          const SizedBox(height: 6,),
             SizedBox(
               height: 150, 
-              child: priorityItems.length > 0 ? 
+              child: priorityItems.isNotEmpty ? 
                 ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: priorityItems.length,
@@ -190,8 +160,8 @@ class _homeScreenState extends State<homeScreen> {
                                 children: [
                                   Text(priorityItems[index].title),
                                   Text(
-                                    priorityItems[index].progress.round().toString() + "% done",
-                                    style: TextStyle( 
+                                    "${priorityItems[index].progress.round()}% done",
+                                    style: const TextStyle( 
                                       fontSize: 20,
                                     ),
                                   ),
@@ -302,13 +272,11 @@ class _homeScreenState extends State<homeScreen> {
                     );
                   },
                 ) :
-                Container(
-                  child: Text(
-                    "No Priority Task",
-                    style: const TextStyle(
-                      color: Colors.grey,
-                      fontSize: 18,
-                    ),
+                const Text(
+                  "No Priority Task",
+                  style: TextStyle(
+                    color: Colors.grey,
+                    fontSize: 18,
                   ),
                 ),
             )
@@ -329,8 +297,8 @@ class _homeScreenState extends State<homeScreen> {
                 fontWeight: FontWeight.bold,
               ),
             ),
-            SizedBox(height: 6,),
-            dailyItems.length > 0 ? Expanded(
+            const SizedBox(height: 6,),
+            dailyItems.isNotEmpty ? Expanded(
               child: ListView.builder(
                 itemCount: dailyItems.length,
                 itemBuilder: (context,index){
@@ -417,7 +385,6 @@ class _homeScreenState extends State<homeScreen> {
                                 
                               ),
                             ),
-                      
                             Container(
                               height: 20,
                               width: 20,
@@ -440,13 +407,12 @@ class _homeScreenState extends State<homeScreen> {
                 }
               
               ),
-            ):Container(
-              child: Text(
-                "No Daily Task",
-                style: const TextStyle(
-                  color: Colors.grey,
-                  fontSize: 18,
-                ),
+            ):
+            const Text(
+              "No Daily Task",
+              style: TextStyle(
+                color: Colors.grey,
+                fontSize: 18,
               ),
             )
           ],
@@ -475,13 +441,7 @@ class _homeScreenState extends State<homeScreen> {
               });
             },))
           );
-        }, 
-        child: const Text(
-          "Add Task",
-          style: TextStyle(
-            color: Colors.white ,
-          ),
-        ),
+        },
         style: ElevatedButton.styleFrom(
       
           backgroundColor:const Color(0xff5038BC),
@@ -489,6 +449,12 @@ class _homeScreenState extends State<homeScreen> {
             borderRadius: BorderRadius.circular(10),
       
           )
+        ), 
+        child: const Text(
+          "Add Task",
+          style: TextStyle(
+            color: Colors.white ,
+          ),
         )
       ),
     );

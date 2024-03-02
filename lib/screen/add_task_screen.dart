@@ -36,14 +36,14 @@ class _addTaskState extends State<addTask> {
           child: Column(
             children: [
               const SizedBox(height: 60),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal:30.0),
+              const Padding(
+                padding: EdgeInsets.symmetric(horizontal:30.0),
                 child: Row(
                   
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const backButton(),
-                    const Expanded(
+                    backButton(),
+                    Expanded(
                       child: Center(
                         child: Text(
                           "Add Task",
@@ -56,7 +56,7 @@ class _addTaskState extends State<addTask> {
                       ),
                     ),
                     // supaya add text add task ada ditengah 
-                    Container(
+                    SizedBox(
                       height: 30,
                       width: 30,
                     )
@@ -129,20 +129,14 @@ class _addTaskState extends State<addTask> {
                           else{
                             widget.addedTask(Task(
                               title: _titleController.text,
-                              description: _descriptionController.text == null ? "" : _descriptionController.text,
+                              description: _descriptionController.text,
                               isPriority: _selectedIndex == 0 ? true : false,
                               isDone: false,
                               progress: 0,
                             ));
                             Navigator.pop(context);
                           }
-                        }, 
-                        child: const Text(
-                          "Create Task",
-                          style: TextStyle(
-                            color: Colors.white ,
-                          ),
-                        ),
+                        },
                         style: ElevatedButton.styleFrom(
                       
                           backgroundColor:const Color(0xff5038BC),
@@ -150,6 +144,12 @@ class _addTaskState extends State<addTask> {
                             borderRadius: BorderRadius.circular(10),
                       
                           )
+                        ), 
+                        child: const Text(
+                          "Create Task",
+                          style: TextStyle(
+                            color: Colors.white ,
+                          ),
                         )
                       ),
                     ),
