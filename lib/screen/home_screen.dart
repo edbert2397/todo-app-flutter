@@ -50,10 +50,12 @@ class _homeScreenState extends State<homeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+
       body: SafeArea(
         child: Container(
           decoration: BoxDecoration(
             color: Colors.purple.shade100,
+            
           ),
             child: Column(
               
@@ -145,11 +147,22 @@ class _homeScreenState extends State<homeScreen> {
             SizedBox(
               height: 150, 
               child: priorityItems.isNotEmpty ? 
-                ListView.builder(
+                ReorderableListView.builder(
+                  onReorder: (int oldIndex,int newIndex){
+                    setState(() {
+                      if (newIndex > oldIndex) {
+                        newIndex -= 1; 
+                      }
+                      final item = priorityItems.removeAt(oldIndex);
+                      priorityItems.insert(newIndex, item);
+                      _storageService.savePriorityItems(priorityItems); 
+                    });
+                  },
                   scrollDirection: Axis.horizontal,
                   itemCount: priorityItems.length,
                   itemBuilder: (BuildContext context, int index) {
                     return GestureDetector(
+                      key: ValueKey(priorityItems[index].id),
                       onTap: () {
                         showDialog(
                           context: context,
@@ -197,7 +210,7 @@ class _homeScreenState extends State<homeScreen> {
                           },
                         );
                       },
-                      onLongPress: (){
+                      onDoubleTap: (){
                         Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => editTask(idx: index,task: priorityItems[index],editedTask: (newEdittedtask){
@@ -210,7 +223,7 @@ class _homeScreenState extends State<homeScreen> {
                       },
                       child: Dismissible(
                         direction: DismissDirection.up,
-                        key : UniqueKey(),
+                        key : ValueKey(priorityItems[index].id),
                         onDismissed: (direction){
                           setState(() {
                             priorityItems.removeAt(index);
@@ -238,6 +251,7 @@ class _homeScreenState extends State<homeScreen> {
                               child: Column(
                                 children: [
                                   Expanded(
+                                    flex: 3,
                                     child: Column(
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
@@ -252,21 +266,30 @@ class _homeScreenState extends State<homeScreen> {
                                       ],
                                     ),
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.only(left:10.0,right: 10.0,bottom:10.0),
-                                    child: Container(
-                                      width: double.infinity,
-                                      height: 6,
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(10),
-                                        child: LinearProgressIndicator(
-                                          backgroundColor: Colors.white,
-                                          valueColor: AlwaysStoppedAnimation<Color>(Colors.purple.shade700),
-                                          value: priorityItems[index].progress/100,
+                                  Expanded(
+                                    flex: 1,
+                                    child: Column(
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.only(left:10.0,right: 10.0,bottom:10.0),
+                                        
+                                          child: Container(
+                                            width: double.infinity,
+                                            height: 6,
+                                            child: ClipRRect(
+                                              borderRadius: BorderRadius.circular(10),
+                                              child: LinearProgressIndicator(
+                                                backgroundColor: Colors.white,
+                                                valueColor: AlwaysStoppedAnimation<Color>(Colors.purple.shade700),
+                                                value: priorityItems[index].progress/100,
+                                              ),
+                                            ),
+                                          ),
                                         ),
-                                      ),
+                                        Spacer(),
+                                      ],
                                     ),
-                                  )
+                                    ),
                                   
                                 ],
                               ),
@@ -303,10 +326,21 @@ class _homeScreenState extends State<homeScreen> {
             ),
             const SizedBox(height: 6,),
             dailyItems.isNotEmpty ? Expanded(
-              child: ListView.builder(
+              child: ReorderableListView.builder(
+                onReorder: (int oldIndex,int newIndex){
+                  setState(() {
+                    if (newIndex > oldIndex) {
+                      newIndex -= 1; 
+                    }
+                    final item = dailyItems.removeAt(oldIndex);
+                    dailyItems.insert(newIndex, item);
+                    _storageService.saveDailyItems(dailyItems); 
+                  });
+                },
                 itemCount: dailyItems.length,
                 itemBuilder: (context,index){
                   return GestureDetector(
+                    key: ValueKey(dailyItems[index].id),
                     onTap: (){
                       showDialog(
                         context: context,
@@ -336,7 +370,7 @@ class _homeScreenState extends State<homeScreen> {
                         },
                       );
                     },
-                    onLongPress: (){
+                    onDoubleTap: (){
                       Navigator.push(
                         context,
                         MaterialPageRoute(builder: (context) => editTask(idx: index,task: dailyItems[index],editedTask: (newEdittedtask){
@@ -347,9 +381,12 @@ class _homeScreenState extends State<homeScreen> {
                         })),
                       );
                     },
+
                     child: Dismissible(
                       direction: DismissDirection.endToStart,
-                      key : UniqueKey(),
+                      // key : UniqueKey(),
+                      key: ValueKey(dailyItems[index].id),
+                      
                       onDismissed: (direction){
                         setState(() {
                           dailyItems.removeAt(index);
@@ -363,8 +400,7 @@ class _homeScreenState extends State<homeScreen> {
                           borderRadius: BorderRadius.circular(10),
                         ),
                         
-                        child: 
-                        const Row(
+                        child: const Row(
                           children: [
                             Spacer(),
                             Icon(FontAwesomeIcons.trash),
@@ -373,6 +409,7 @@ class _homeScreenState extends State<homeScreen> {
                       ),
                       
                       child: Container(
+                        
                         margin: const EdgeInsets.symmetric(vertical: 6),
                         padding: const EdgeInsets.symmetric(horizontal:20,vertical: 15),
                         decoration: BoxDecoration(
@@ -389,17 +426,20 @@ class _homeScreenState extends State<homeScreen> {
                                 
                               ),
                             ),
-                            Container(
-                              height: 20,
-                              width: 20,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                border: Border.all(
-                                  color: const Color(0xff5038BC),
-                                  width: 2,
-                                
+                            Padding(
+                              padding: const EdgeInsets.only(right: 20.0),
+                              child: Container(
+                                height: 20,
+                                width: 20,
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  border: Border.all(
+                                    color: const Color(0xff5038BC),
+                                    width: 2,
+                                  
+                                  ),
+                                  color: dailyItems[index].isDone? const Color(0xff5038BC) : Colors.transparent
                                 ),
-                                color: dailyItems[index].isDone? const Color(0xff5038BC) : Colors.transparent
                               ),
                             )
                           ],

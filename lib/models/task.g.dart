@@ -7,6 +7,7 @@ part of 'task.dart';
 // **************************************************************************
 
 Task _$TaskFromJson(Map<String, dynamic> json) => Task(
+      id: json['id'] as int,
       title: json['title'] as String,
       description: json['description'] as String,
       isPriority: json['isPriority'] as bool,
@@ -15,6 +16,7 @@ Task _$TaskFromJson(Map<String, dynamic> json) => Task(
     );
 
 Map<String, dynamic> _$TaskToJson(Task instance) => <String, dynamic>{
+      'id': instance.id,
       'title': instance.title,
       'description': instance.description,
       'isPriority': instance.isPriority,

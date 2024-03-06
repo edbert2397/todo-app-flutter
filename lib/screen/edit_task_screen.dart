@@ -141,6 +141,7 @@ class _editTaskState extends State<editTask> {
                             else{
                               _newIsDone = _currentProgress == 100 ? true : false;
                               widget.editedTask(Task(
+                                id: widget.task.id,
                                 title: _editTitleController.text,
                                 description: _editDescriptionController.text,
                                 isPriority: widget.task.isPriority,

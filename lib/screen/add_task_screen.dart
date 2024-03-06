@@ -5,6 +5,7 @@ import 'package:todoapp/components/category_button.dart';
 import 'package:todoapp/components/description_input.dart';
 import 'package:todoapp/components/title_input.dart';
 import 'package:todoapp/models/task.dart';
+import 'package:todoapp/storage_service.dart';
 
 class addTask extends StatefulWidget {
   const addTask({super.key, required this.addedTask});
@@ -17,6 +18,8 @@ class _addTaskState extends State<addTask> {
   int _selectedIndex = 0;
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();
+  final StorageService storageService = StorageService();
+
 
   @override
   void dispose(){
@@ -122,18 +125,19 @@ class _addTaskState extends State<addTask> {
                       height: 60,
                       child: ElevatedButton(
                         
-                        onPressed: (){
+                        onPressed: () async {
                           if(_titleController.text.isEmpty ){
                             ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("Please fill title Field")));
                           }
                           else{
-                            widget.addedTask(Task(
-                              title: _titleController.text,
-                              description: _descriptionController.text,
-                              isPriority: _selectedIndex == 0 ? true : false,
-                              isDone: false,
-                              progress: 0,
-                            ));
+                            Task newTask = await storageService.createTask(
+                              _titleController.text,
+                              _descriptionController.text,
+                              _selectedIndex == 0 ? true : false,
+                              false,
+                              0,
+                            );
+                            widget.addedTask(newTask);
                             Navigator.pop(context);
                           }
                         },
