@@ -158,7 +158,11 @@ class _homeScreenState extends State<homeScreen> {
                               title: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(priorityItems[index].title),
+                                  Text(
+                                    priorityItems[index].title.length > 12
+                                    ? '${priorityItems[index].title.substring(0, 12)}...'
+                                    : priorityItems[index].title,
+                                  ),
                                   Text(
                                     "${priorityItems[index].progress.round()}% done",
                                     style: const TextStyle( 
