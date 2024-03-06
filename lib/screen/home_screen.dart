@@ -50,11 +50,15 @@ class _homeScreenState extends State<homeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
+      
       body: SafeArea(
         child: Container(
           decoration: BoxDecoration(
-            color: Colors.purple.shade100,
+            // color: Colors.purple.shade100,  
+            image: DecorationImage(
+              image: AssetImage("assets/images/Android Large - 1.jpg"),
+              fit: BoxFit.cover,
+            ),
             
           ),
             child: Column(
@@ -110,16 +114,34 @@ class _homeScreenState extends State<homeScreen> {
     );
   }
   Padding buildWelcomeText(){
-    return const Padding(
+    return Padding(
       padding: EdgeInsets.symmetric(horizontal:30.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("Welcome Edbert.H",
-            style: TextStyle(
-              fontSize: 30,
-              fontWeight: FontWeight.bold,
-        
+          ShaderMask(
+            blendMode: BlendMode.srcIn, 
+            shaderCallback: (bounds) => LinearGradient(
+              colors: [
+                Color(0xFF7BB6F8), 
+                Color(0xFF9C6DC5), 
+                Color(0xFF5D5C99), 
+              ],
+              stops: [
+                0.0, 
+                0.5, 
+                1.0, 
+              ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ).createShader(Rect.fromLTWH(0, 0, bounds.width, bounds.height)), 
+            child: Text(
+              "Welcome Edbert.H",
+              style: TextStyle(
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+              ),
             ),
           ),
           Text("Have a nice day !",
@@ -242,8 +264,36 @@ class _homeScreenState extends State<homeScreen> {
                         child: Container(
                           width: 120, 
                           margin: const EdgeInsets.symmetric(horizontal: 10), 
+
                           decoration: BoxDecoration(
-                            color:  priorityItems[index].isDone ?const Color(0xff5038BC) : const Color(0xff907cc4) , 
+                            // color:  priorityItems[index].isDone ?const Color(0xff5038BC) : const Color(0xff907cc4) , 
+                            // color:  priorityItems[index].isDone ?const Color(0xff817FF7) : const Color(0xffBDBCFF) , 
+                            gradient:priorityItems[index].isDone ?
+                              LinearGradient(
+                                colors: [
+                                  Color(0xff817FF7), 
+                                  Color(0xff817FF7), 
+                                ],
+                              )
+                              :
+                              LinearGradient(
+                                colors: [
+                                  Color(0xFFBDBCFF), 
+                                  Color(0xFFA8D1FF), 
+                                ],
+                                stops: [0.7, 1.0], 
+                                begin: Alignment.topLeft, 
+                                end: Alignment.bottomRight,
+                              ),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.2), 
+                                  spreadRadius: 0,
+                                  blurRadius: 4,
+                                  offset: Offset(3,4),
+
+                                )
+                              ],
                             borderRadius: BorderRadius.circular(25),
                           ),
                           child: Padding(
