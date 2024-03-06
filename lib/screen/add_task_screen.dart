@@ -7,14 +7,14 @@ import 'package:todoapp/components/title_input.dart';
 import 'package:todoapp/models/task.dart';
 import 'package:todoapp/storage_service.dart';
 
-class addTask extends StatefulWidget {
-  const addTask({super.key, required this.addedTask});
+class AddTask extends StatefulWidget {
+  const AddTask({super.key, required this.addedTask});
   final Function(Task task) addedTask;
   @override
-  State<addTask> createState() => _addTaskState();
+  State<AddTask> createState() => _AddTaskState();
 }
 
-class _addTaskState extends State<addTask> {
+class _AddTaskState extends State<AddTask> {
   int _selectedIndex = 0;
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _descriptionController = TextEditingController();

@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:todoapp/screen/home_screen.dart';
 import 'package:todoapp/screen/profile_screen.dart';
 
-class bottomNavbar extends StatelessWidget {
-  const bottomNavbar({super.key});
+class BottomNavbar extends StatelessWidget {
+  const BottomNavbar({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +30,7 @@ class bottomNavbar extends StatelessWidget {
               size: 40,
             ),
             onPressed: () {
-              if (ModalRoute.of(context)?.settings.name != homeScreen.routeName) {
+              if (ModalRoute.of(context)?.settings.name != HomeScreen.routeName) {
                 Navigator.pop(context);
               }
             },

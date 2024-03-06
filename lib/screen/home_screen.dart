@@ -13,16 +13,16 @@ import 'package:todoapp/storage_service.dart';
 
 
 
-class homeScreen extends StatefulWidget {
-  const homeScreen({super.key});
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
 
   static const String routeName = '/';
 
   @override
-  State<homeScreen> createState() => _homeScreenState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _homeScreenState extends State<homeScreen> {
+class _HomeScreenState extends State<HomeScreen> {
   late List<Task> items;
   late List<Task> priorityItems;
   late List<Task> dailyItems;
@@ -53,8 +53,7 @@ class _homeScreenState extends State<homeScreen> {
       
       body: SafeArea(
         child: Container(
-          decoration: BoxDecoration(
-            // color: Colors.purple.shade100,  
+          decoration: const BoxDecoration(
             image: DecorationImage(
               image: AssetImage("assets/images/Android Large - 1.jpg"),
               fit: BoxFit.cover,
@@ -62,10 +61,8 @@ class _homeScreenState extends State<homeScreen> {
             
           ),
             child: Column(
-              
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                  
                 buildTopBar(),
                 const SizedBox(height: 15),
                 buildWelcomeText(),
@@ -77,7 +74,7 @@ class _homeScreenState extends State<homeScreen> {
                     padding: const EdgeInsets.symmetric(horizontal: 30,vertical: 20),
                     width: double.infinity,
                     decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.only(topLeft: const Radius.circular(40),topRight: Radius.circular(40)),
+                      borderRadius: const BorderRadius.only(topLeft: Radius.circular(40),topRight: Radius.circular(40)),
                       color: Colors.grey.shade100,
                     ),
                     child: Column(
@@ -97,10 +94,9 @@ class _homeScreenState extends State<homeScreen> {
             ),
         ),
       ),
-      bottomNavigationBar: const bottomNavbar(),
+      bottomNavigationBar: const BottomNavbar(),
     );
   }
-
   Padding buildTopBar() {
     return Padding(
       padding: const EdgeInsets.only(left: 30,right: 30,top: 30),
@@ -115,13 +111,13 @@ class _homeScreenState extends State<homeScreen> {
   }
   Padding buildWelcomeText(){
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal:30.0),
+      padding: const EdgeInsets.symmetric(horizontal:30.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ShaderMask(
             blendMode: BlendMode.srcIn, 
-            shaderCallback: (bounds) => LinearGradient(
+            shaderCallback: (bounds) => const LinearGradient(
               colors: [
                 Color(0xFF7BB6F8), 
                 Color(0xFF9C6DC5), 
@@ -135,7 +131,7 @@ class _homeScreenState extends State<homeScreen> {
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ).createShader(Rect.fromLTWH(0, 0, bounds.width, bounds.height)), 
-            child: Text(
+            child: const Text(
               "Welcome Edbert.H",
               style: TextStyle(
                 fontSize: 30,
@@ -144,7 +140,7 @@ class _homeScreenState extends State<homeScreen> {
               ),
             ),
           ),
-          Text("Have a nice day !",
+          const Text("Have a nice day !",
             style: TextStyle(
               fontSize: 25,
             ),
@@ -154,208 +150,207 @@ class _homeScreenState extends State<homeScreen> {
     );
   }
   Padding priorityItemsList() {
-    
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal:30.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const Text("My Priority Task",
-                      style: TextStyle(
-                        fontSize: 25,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+            style: TextStyle(
+              fontSize: 25,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
           const SizedBox(height: 6,),
-            SizedBox(
-              height: 150, 
-              child: priorityItems.isNotEmpty ? 
-                ReorderableListView.builder(
-                  onReorder: (int oldIndex,int newIndex){
-                    setState(() {
-                      if (newIndex > oldIndex) {
-                        newIndex -= 1; 
-                      }
-                      final item = priorityItems.removeAt(oldIndex);
-                      priorityItems.insert(newIndex, item);
-                      _storageService.savePriorityItems(priorityItems); 
-                    });
-                  },
-                  scrollDirection: Axis.horizontal,
-                  itemCount: priorityItems.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return GestureDetector(
-                      key: ValueKey(priorityItems[index].id),
-                      onTap: () {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return AlertDialog(
-                              title: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    priorityItems[index].title.length > 12
-                                    ? '${priorityItems[index].title.substring(0, 12)}...'
-                                    : priorityItems[index].title,
-                                  ),
-                                  Text(
-                                    "${priorityItems[index].progress.round()}% done",
-                                    style: const TextStyle( 
-                                      fontSize: 20,
-                                    ),
-                                  ),
-                                ],
-                              ), 
-                              content: Text(priorityItems[index].description), 
-                              actions:[
-                                TextButton(
-                                  child: const Text("Close"),
-                                  onPressed: () {
-                                    Navigator.of(context).pop(); 
-                                  },
+          SizedBox(
+            height: 150, 
+            child: priorityItems.isNotEmpty ? 
+              ReorderableListView.builder(
+                onReorder: (int oldIndex,int newIndex){
+                  setState(() {
+                    if (newIndex > oldIndex) {
+                      newIndex -= 1; 
+                    }
+                    final item = priorityItems.removeAt(oldIndex);
+                    priorityItems.insert(newIndex, item);
+                    _storageService.savePriorityItems(priorityItems); 
+                  });
+                },
+                scrollDirection: Axis.horizontal,
+                itemCount: priorityItems.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return GestureDetector(
+                    key: ValueKey(priorityItems[index].id),
+                    onTap: () {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  priorityItems[index].title.length > 12
+                                  ? '${priorityItems[index].title.substring(0, 12)}...'
+                                  : priorityItems[index].title,
                                 ),
-                                TextButton(
-                                  child: priorityItems[index].isDone == true? const Text("Mark as not Done") : const Text("Mark as Done"),
-                                  onPressed: () {
-                                    setState(() {
-                                      bool now = priorityItems[index].isDone;
-                                      now == true? priorityItems[index].isDone = false: priorityItems[index].isDone = true;
-                                      now == true? priorityItems[index].progress = 0 : priorityItems[index].progress = 100;
-
-                                      _storageService.savePriorityItems(priorityItems); 
-                                      Navigator.of(context).pop(); 
-                                    });
-                                  },
+                                Text(
+                                  "${priorityItems[index].progress.round()}% done",
+                                  style: const TextStyle( 
+                                    fontSize: 20,
+                                  ),
                                 ),
                               ],
-                            );
-                          },
-                        );
-                      },
-                      onDoubleTap: (){
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => editTask(idx: index,task: priorityItems[index],editedTask: (newEdittedtask){
-                            setState(() {
-                              priorityItems[index] = newEdittedtask;
-                              _storageService.savePriorityItems(priorityItems);
-                            });
-                          })),
-                        );
-                      },
-                      child: Dismissible(
-                        direction: DismissDirection.up,
-                        key : ValueKey(priorityItems[index].id),
-                        onDismissed: (direction){
+                            ), 
+                            content: Text(priorityItems[index].description), 
+                            actions:[
+                              TextButton(
+                                child: const Text("Close"),
+                                onPressed: () {
+                                  Navigator.of(context).pop(); 
+                                },
+                              ),
+                              TextButton(
+                                child: priorityItems[index].isDone == true? const Text("Mark as not Done") : const Text("Mark as Done"),
+                                onPressed: () {
+                                  setState(() {
+                                    bool now = priorityItems[index].isDone;
+                                    now == true? priorityItems[index].isDone = false: priorityItems[index].isDone = true;
+                                    now == true? priorityItems[index].progress = 0 : priorityItems[index].progress = 100;
+
+                                    _storageService.savePriorityItems(priorityItems); 
+                                    Navigator.of(context).pop(); 
+                                  });
+                                },
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    },
+                    onDoubleTap: (){
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => EditTask(idx: index,task: priorityItems[index],editedTask: (newEdittedtask){
                           setState(() {
-                            priorityItems.removeAt(index);
+                            priorityItems[index] = newEdittedtask;
                             _storageService.savePriorityItems(priorityItems);
                           });
-                        },
-                        background: Container(
-                          padding: const EdgeInsets.symmetric(horizontal:20),
-                          decoration: BoxDecoration(
-                            color: Colors.grey.withOpacity(0.1),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          
-                          child: const Center(child: Icon(FontAwesomeIcons.trash)),
+                        })),
+                      );
+                    },
+                    child: Dismissible(
+                      direction: DismissDirection.up,
+                      key : ValueKey(priorityItems[index].id),
+                      onDismissed: (direction){
+                        setState(() {
+                          priorityItems.removeAt(index);
+                          _storageService.savePriorityItems(priorityItems);
+                        });
+                      },
+                      background: Container(
+                        padding: const EdgeInsets.symmetric(horizontal:20),
+                        decoration: BoxDecoration(
+                          color: Colors.grey.withOpacity(0.1),
+                          borderRadius: BorderRadius.circular(10),
                         ),
-                        child: Container(
-                          width: 120, 
-                          margin: const EdgeInsets.symmetric(horizontal: 10), 
+                        
+                        child: const Center(child: Icon(FontAwesomeIcons.trash)),
+                      ),
+                      child: Container(
+                        width: 120, 
+                        margin: const EdgeInsets.symmetric(horizontal: 10), 
 
-                          decoration: BoxDecoration(
-                            gradient:priorityItems[index].isDone ?
-                              LinearGradient(
-                                colors: [
-                                  Color(0xff817FF7), 
-                                  Color(0xff817FF7), 
-                                ],
-                              )
-                              :
-                              LinearGradient(
-                                colors: [
-                                  Color(0xFFBDBCFF), 
-                                  Color(0xFFA8D1FF), 
-                                ],
-                                stops: [0.7, 1.0], 
-                                begin: Alignment.topLeft, 
-                                end: Alignment.bottomRight,
-                              ),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.black.withOpacity(0.2), 
-                                  spreadRadius: 0,
-                                  blurRadius: 4,
-                                  offset: Offset(3,4),
-
-                                )
+                        decoration: BoxDecoration(
+                          gradient:priorityItems[index].isDone ?
+                            const LinearGradient(
+                              colors: [
+                                Color(0xff817FF7), 
+                                Color(0xff817FF7), 
                               ],
-                            borderRadius: BorderRadius.circular(25),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                children: [
-                                  Expanded(
-                                    flex: 3,
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          priorityItems[index].title,
-                                          textAlign: TextAlign.center,
-                                          style: const TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 18,
-                                          ),
+                            )
+                            :
+                            const LinearGradient(
+                              colors: [
+                                Color(0xFFBDBCFF), 
+                                Color(0xFFA8D1FF), 
+                              ],
+                              stops: [0.7, 1.0], 
+                              begin: Alignment.topLeft, 
+                              end: Alignment.bottomRight,
+                            ),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.2), 
+                                spreadRadius: 0,
+                                blurRadius: 4,
+                                offset: const Offset(3,4),
+
+                              )
+                            ],
+                          borderRadius: BorderRadius.circular(25),
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              children: [
+                                Expanded(
+                                  flex: 3,
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        priorityItems[index].title,
+                                        textAlign: TextAlign.center,
+                                        style: const TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 18,
                                         ),
-                                      ],
-                                    ),
+                                      ),
+                                    ],
                                   ),
-                                  Expanded(
-                                    flex: 1,
-                                    child: Column(
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.only(left:10.0,right: 10.0,bottom:10.0),
-                                        
-                                          child: Container(
-                                            width: double.infinity,
-                                            height: 6,
-                                            child: ClipRRect(
-                                              borderRadius: BorderRadius.circular(10),
-                                              child: LinearProgressIndicator(
-                                                backgroundColor: Colors.white,
-                                                valueColor: AlwaysStoppedAnimation<Color>(Colors.purple.shade700),
-                                                value: priorityItems[index].progress/100,
-                                              ),
+                                ),
+                                Expanded(
+                                  flex: 1,
+                                  child: Column(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(left:10.0,right: 10.0,bottom:10.0),
+                                      
+                                        child: Container(
+                                          width: double.infinity,
+                                          height: 6,
+                                          child: ClipRRect(
+                                            borderRadius: BorderRadius.circular(10),
+                                            child: LinearProgressIndicator(
+                                              backgroundColor: Colors.white,
+                                              valueColor: AlwaysStoppedAnimation<Color>(Colors.purple.shade700),
+                                              value: priorityItems[index].progress/100,
                                             ),
                                           ),
                                         ),
-                                        Spacer(),
-                                      ],
-                                    ),
-                                    ),
-                                  
-                                ],
-                              ),
+                                      ),
+                                      const Spacer(),
+                                    ],
+                                  ),
+                                  ),
+                                
+                              ],
                             ),
                           ),
                         ),
-                    );
-                  },
-                ) :
-                const Text(
-                  "No Priority Task",
-                  style: TextStyle(
-                    color: Colors.grey,
-                    fontSize: 18,
-                  ),
+                      ),
+                  );
+                },
+              ) :
+              const Text(
+                "No Priority Task",
+                style: TextStyle(
+                  color: Colors.grey,
+                  fontSize: 18,
                 ),
-            )
+              ),
+          )
         ],
       ),
     );
@@ -422,7 +417,7 @@ class _homeScreenState extends State<homeScreen> {
                     onDoubleTap: (){
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => editTask(idx: index,task: dailyItems[index],editedTask: (newEdittedtask){
+                        MaterialPageRoute(builder: (context) => EditTask(idx: index,task: dailyItems[index],editedTask: (newEdittedtask){
                           setState(() {
                             dailyItems[index] = newEdittedtask;
                             _storageService.saveDailyItems(dailyItems);
@@ -433,7 +428,6 @@ class _homeScreenState extends State<homeScreen> {
 
                     child: Dismissible(
                       direction: DismissDirection.endToStart,
-                      // key : UniqueKey(),
                       key: ValueKey(dailyItems[index].id),
                       
                       onDismissed: (direction){
@@ -520,7 +514,7 @@ class _homeScreenState extends State<homeScreen> {
         
         onPressed: (){
           Navigator.push(context, 
-            MaterialPageRoute(builder: (context) => addTask(addedTask: (newTask){
+            MaterialPageRoute(builder: (context) => AddTask(addedTask: (newTask){
               setState(() {
                 if(newTask.isPriority == true){
                   priorityItems.add(newTask);

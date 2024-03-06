@@ -4,18 +4,18 @@ import 'package:todoapp/components/description_input.dart';
 import 'package:todoapp/components/title_input.dart';
 import 'package:todoapp/models/task.dart';
 
-class editTask extends StatefulWidget {
-  editTask({super.key, required this.idx,required this.task,required this.editedTask});
+class EditTask extends StatefulWidget {
+  const EditTask({super.key, required this.idx,required this.task,required this.editedTask});
 
   final int idx;
   final Task task;
   final Function (Task task) editedTask; 
 
   @override
-  State<editTask> createState() => _editTaskState();
+  State<EditTask> createState() => _EditTaskState();
 }
 
-class _editTaskState extends State<editTask> {
+class _EditTaskState extends State<EditTask> {
   late TextEditingController _editTitleController;
   late TextEditingController _editDescriptionController;
   late double _currentProgress;

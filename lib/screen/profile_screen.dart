@@ -8,7 +8,7 @@ class Profile extends StatelessWidget {
   Widget build(BuildContext context) {
     String aboutMe = "Hi there I'm Edbert, a second year student in University of Indonesia. I like to learn new things and eat sushi :D.";
     return Scaffold(
-      bottomNavigationBar: const bottomNavbar(),
+      bottomNavigationBar: const BottomNavbar(),
       body: Container(
         color: const Color(0xff5038BC), 
       
