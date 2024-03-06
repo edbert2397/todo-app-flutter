@@ -10,17 +10,19 @@ I implement SharedPreferences to prevent data loss when the application is close
 ### priority task
 - The priority task can be scrolled left and right
 - There is progress indicator on the priority task so that user can see what is his progress on that task.
-- If the task is not done, the background color is light purple, however if it's done, the background color will be a darker purple.
-- If it is pressed, it will display the title, progress, and description of the task. There is *"Mark as Done"* button on there that if it is pressed, the task will be considered done.
-- If it is long pressed, it will navigated to `edik task screen` where you can edit the title or the description of the task.
+- If the task is not done, the background color is light blue, however if it's done, the background color will be a blue.
+- If it is pressed, it will display the title, progress, and description of the task. There is a button on there. If the task is currently marked as not done, the button will display 'Mark as Done'. Pressing the button will change the task's status to done. Conversely, if the task is already marked as done, the button will show 'Mark as Not Done'. Clicking this will revert the task back to an not done status. 
+- If it is double pressed, it will navigated to `edik task screen` where you can edit the title or the description of the task.
 - If it is swiped up, the task will be deleted. 
+- Supports drag and drop to reorder the items. 
 
 ### daily task
 - The daily task can be scrolled up and down
 - If the task is not done, the indicator circle's color of the task is white, however if it's done, the indicator circle's color will be purple and there will be a linethrough on the title of the task.
-- If it is pressed, it will display the title and description of the task. There is "Mark as Done" button on there that if it is pressed, the task will be considered done.
-- If it is long pressed, it will navigated to `edik task screen` where you can edit the title or the description of the task.
+- If it is pressed, it will display the title and description of the task. There is a button on there. If the task is currently marked as not done, the button will display 'Mark as Done'. Pressing the button will change the task's status to done. Conversely, if the task is already marked as done, the button will show 'Mark as Not Done'. Clicking this will revert the task back to an not done status. 
+- If it is double pressed, it will navigated to `edik task screen` where you can edit the title or the description of the task.
 - If it is swiped left, the task will be deleted. 
+- Supports drag and drop to reorder the items.
 
 ## Add task screen
 You can add the title and description of the task. Also, you can choose the category of the task by just clicking the category button.
@@ -29,7 +31,7 @@ You can add the title and description of the task. Also, you can choose the cate
 You can edit the title and description of the task.
 
 ## Profile page sreen
-By clicking the profile icon on the bottom navigation bar, yo will be directed to "AboutMe" page where you can see my profile information section.
+By clicking the profile icon on the bottom navigation bar, you will be directed to "AboutMe" page where you can see my profile information section.
 
 # Packages used
 - font_awesome_flutter: '>= 4.7.0'

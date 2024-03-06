@@ -154,6 +154,7 @@ class _homeScreenState extends State<homeScreen> {
     );
   }
   Padding priorityItemsList() {
+    
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal:30.0),
       child: Column(
@@ -266,8 +267,6 @@ class _homeScreenState extends State<homeScreen> {
                           margin: const EdgeInsets.symmetric(horizontal: 10), 
 
                           decoration: BoxDecoration(
-                            // color:  priorityItems[index].isDone ?const Color(0xff5038BC) : const Color(0xff907cc4) , 
-                            // color:  priorityItems[index].isDone ?const Color(0xff817FF7) : const Color(0xffBDBCFF) , 
                             gradient:priorityItems[index].isDone ?
                               LinearGradient(
                                 colors: [
